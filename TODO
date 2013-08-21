@@ -1,0 +1,64 @@
+--- IDEAS ---
+
+
+--- Issues ---
+o   env is shared and modified by all algorithms
+o   metrics are calculated before strategy is processed. This means a strategy using the opening price
+    might be access a metric that was calculated off the closing price. Thus bad timing. Just need to be mindful
+
+
+
+--- TODO ---
+o   [1] add topological sorting to Algorithm metrics, force users to use OrderedDict
+o   [1] create special Error for data does not exist
+o   [1] add active_order updating so that max / min intra day values are recorded
+        as well as statistics which rely on datetime such as annualized_roi
+        good places to update are before ordering and at end of trading day
+        also evaluate trade.auto_exit() at end of trading day
+o   [1] add a way to keep track of weekly, monthly, yearly returns, and associated statistics, perhaps a new reporter
+o   [2] add order ammount intelligence to order_mngr self.order('buy_all')
+o   [2] order validation (checking that shares * price <= balance etc)
+o   [2] option to liquidate all outstanding floating positions at end of simulation, default True
+o   [2] rework stats manager to accept only new trades so it can be used as a standalone stat manager in another application
+o   [3] add logging to all modules
+o   [3] add ability to record stats, for each day (may be too memory intensive)
+o   [3] add docstrings to all major classes algorithm, simulator, report, statistics, stat, metric
+o   [3] add benchmark for performance metric comparison
+o   [4] complete factory for generating test objects
+o   [4] complete unit tests
+o   [5] add option in metric to view result before self.n == window
+o   [6] rolling stats; maybe store a deepcopy(stats) in each closed trade
+o   [6] clean up Data_Source object for easier customization of new sources
+        data is forced to be in format env['news'][date] for now
+        this requires quirking handling of dates with multiple events
+        and dates that occur on non trading days. possible to handle
+        but not easy
+        perhaps make this a stream, so data could come from anywhere such as sql, internet, file
+o   [7] fully document examples
+o   [8] add primitive AI libraries (monte carlo, genetic algorithm, k-means)
+
+--- STRATS TO CODE ---
+o   SPY 10-day average true range crosses over X times the 100-day average true range. Buy on close. Sell 20 days later. (1993 - 9/2008)
+o   SPY 10-day average absolute gap crosses over X times the 100-day average absolute gap. Buy on close. Sell 20 days later. (1993 - 9/2008)
+o   SPY 10-day average absolute gap crosses over 2.5 times the 100-day average absolute gap. Buy on close. Sell X days later. (1993 - 9/2008)
+o   10-day Exp MA of NYSE Advancers / (Advancers + Decliners) < 0.375. Buy at close. Sell when ratio > X
+o   10-day Exp MA of NYSE Advancers / (Advancers + Decliners) < 0.375. Buy at close. Sell X days later
+
+
+--- TEST ---
+o   commission in order_mngr
+o   slippage in order_mngr
+o   proper avail_bal and float_bal in order_mngr after each trade
+
+--- COMPLETE ---
+o   [1] begin computing metrics at start of history so values are up-to-date even if algorithm starts at a later date
+o   [3] implement self.delay_start in quant_sim.algorithm. This gives user another option instead of ignoring all data errors
+o   [3] Give commission model access to (sid, shares, price) That way more complex commission models can be built based on sid, 
+        and type of security
+o   [2] add dependency management to Statistics_Mngr so that you can do things like calculate trades/yr. This can also be accomplished 
+        by forcing user to be mindful of the order they create stats and using OrderedDict
+        Generic(id='trades/yr', val=0.0, reqs=['years', 'n'], func=lambda e, s, fk, t: s[fk]['n'] / s[fk]['years']),
+o   [2] ability to watch/record variables inside an Algorithm and have them outputted to file for analysis
+o   [2] rethink how past data is accessed. via env or directly from data object thus needing to define a history lookup for each
+o   [1] major rework of order_mngr avail_bal, float_bal needs to be done
+o   [2] rework order_mngr so it can act as a stand alone order_mngr in another application

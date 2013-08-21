@@ -1,0 +1,56 @@
+What's New
+
+
+
+
+
+
+v.0.0.3 (15 March 2013)
+==========================
+Minor release, which focused mostly on custom user defined data sources and
+how those data_sources were accessed in the API.
+
+
+New Features
+------------
+o  added ignore_old feature to Algorithm to pass silently and ignore errors if update_metrics
+   or process_data attempts to access old data that is not in history
+   
+Changes
+-------
+o  reworked Environment and Data_Source API, made it cleaner and more defined
+
+Improvements
+------------
+
+
+
+v.0.0.2 (15 February 2013)
+==========================
+Minor release which focused mostly on cleaning up logic in order processing
+
+New Features
+------------
+o  added auto_exit functionality to orders func=Time_Exit(2), func=Limit(80), func=Stop(70)
+   func(lambda env['SPY'].c > 80, 80), optional, default None
+   must return a boolean
+   
+Changes
+-------
+o  change order_mngr cost_basis / stat tracking mechanism
+   use a dict to track {n, cost_basis, float_bal, trades=[]} for each
+   sid and 'all': self.order_mngr.positions[sid]['n']
+   this also affected quant.finances.cost_basis and quant.finances.order_mngr.apply_cost_basis
+
+Improvements
+------------
+o  add caching functionality to metric (this would save memory in
+   self.history when cache=False)
+
+
+
+v.0.0.1 (12 Janurary 2013)
+==========================
+This is the initial release. A Basic skeleton shell is provided
+for backtesting strategies. A proof of concept.
+
