@@ -41,7 +41,7 @@ Style Guide
 -----------
 
 To ensure that changes and patches are focused on behavior changes,
-the QuantBox codebase adheres to both PEP-8,
+the QuantSim codebase adheres to both PEP-8,
 <http://www.python.org/dev/peps/pep-0008/>, and pyflakes,
 <https://launchpad.net/pyflakes/>.
 
@@ -56,14 +56,15 @@ changes pass ```flake8 zipline tests```
 Source
 ======
 
-The source for QuantBox is hosted at
-<https://github.com/lanj88/quant>.
+The source for QuantSim is hosted at
+<https://github.com/quantistican/quant_sim>.
 
 Build Status
 ============
 
-![Build Status](https://github.com/lanj88/quant)
+![Build Status](https://github.com/quantistician/quant_sim)
 
 Contact
 =======
-For other questions, please contact Justin Lanahan at lanahan.j@gmail.com
+For other questions, please contact Justin at justin@quantistician.com
+Please visit ![Quantistician.com](http://quantistician.com) for more info!
