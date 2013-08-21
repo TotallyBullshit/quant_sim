@@ -1,7 +1,7 @@
 QuantSim
 =========
 
-QuantBox is an Algorithmic trading library
+QuantSim is an Algorithmic trading library
 
 
 Discussion and Help
@@ -62,7 +62,7 @@ The source for QuantBox is hosted at
 Build Status
 ============
 
-[![Build Status](https://github.com/lanj88/quant)
+![Build Status](https://github.com/lanj88/quant)
 
 Contact
 =======
