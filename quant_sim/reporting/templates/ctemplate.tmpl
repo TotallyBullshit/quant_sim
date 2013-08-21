@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Full Report</title>
+        <style>
+            p.content-one {
+                display:none;
+                margin-left:50px;
+            }
+            div.trade_breakdown {
+                display:none;
+            }
+
+            td
+            { 
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                align: center
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+        <script type="text/javascript">
+        <!--
+            function toggle_visibility(id) {
+               var e = document.getElementById(id);
+               if(e.style.display == 'block')
+                  e.style.display = 'none';
+               else
+                  e.style.display = 'block';
+            }
+        //-->
+        </script>
+    
+        <h1><center>$id Statistics</center></h1>
+        <p>$desc</p>
+        <h3>Vital Stats ($all['start_dt'] &nbsp&nbsp till &nbsp&nbsp $all['end_dt'])</h3>
+        
+        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+            <TR>
+                <TH>Filter</TH><TH>N</TH><TH>N/Yr</TH><TH>Win_Perc</TH><TH>Profit_Factor</TH><TH>Mean_return</TH><TH>StDev</TH><TH>ROI</TH><TH>ROI Ann</TH><TH>Max_DD</TH>
+            </TR>
+            <TR> <TD>All</TD><TD>$all['n'] </TD> <TD>$all['trades/yr'] </TD><TD>$all['win_perc'] </TD> <TD>$all['prof_fact'] </TD> <TD>$all['mean_theo'] </TD><TD>$all['stdev_theo'] </TD> <TD>$all['roi'] </TD> <TD>$all['roi_ann'] </TD><TD>$all['max_dd'] </TD></TR>
+       </TABLE>
+  
+        <h3>Winners / Losers</h3>
+        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+            <TR>
+                <TH> </TH><TH>N</TH><TH>Mean_return</TH><TH>StDev</TH><TH>Max_in_Row</TH><TH>Max_Ret</TH>
+            </TR>
+            <TR> <TD>Winners</TD><TD>$winners['n'] </TD> <TD>$winners['mean_theo'] </TD><TD>$winners['stdev_theo'] </TD><TD>$all['max_nup']  </TD><TD>$winners['max_theo'] </TD></TR>
+            <TR> <TD>Losers</TD><TD>$losers['n'] </TD> <TD>$losers['mean_theo'] </TD><TD>$losers['stdev_theo'] <TD>$all['max_ndn'] </TD><TD>$losers['min_theo'] </TD></TR>
+        </TABLE>  
+        
+         #silent $plot($order_mngr.closed_pos, $str($report_dir + $id)) 
+        <img src="$(id).png" alt="Equity Curve" width="700" height="350">
+        
+        
+        <script type="text/javascript" src="collapse_sec.js"></script>
+
+        <div style="background:grey" class="sitesection" id="$(id)_tradediv">
+            <p class="expand-one"><a href="#$(id)_trades=div" onclick="toggle_visibility('$(id)_trades');">$id Trade Breakdown</a></p>
+            <div class="trade_breakdown" id="$(id)_trades">
+                <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+                    <TR>
+                        <TH>#</TH><TH>Sym</TH><TH>Shares</TH><TH>Open Date</TH><TH>Price</TH><TH>Close Date</TH><TH>Price</TH><TH>Return</TH>
+                    </TR>
+                    #for $i,$trade in $enumerate($order_mngr.closed_pos)
+                    <TR>
+                        <TD>#echo $i+1#</TD>
+                        <TD>$trade.sid</TD>
+                        <TD>$trade.shares</TD>
+                        <TD>$trade.open_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.open_p</TD>
+                        <TD>$trade.close_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.close_p</TD>
+                        <TD bgcolor="#if $trade.theo_ret > 0.0# Green #else# Red #end if#">#echo '%2.3f'%($trade.theo_ret * 100.0)#%</TD>
+                    </TR>
+                    #end for
+                </TABLE>
+            </div>            
+        </div>
+
+
+</body>
+</html>

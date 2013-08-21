@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Full Report</title>
+        <style>
+            p.content-one {
+                display:none;
+                margin-left:50px;
+            }
+            div.trade_breakdown {
+                display:none;
+            }
+
+            td
+            { 
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                align: center
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+        <script type="text/javascript">
+        <!--
+            function toggle_visibility(id) {
+               var e = document.getElementById(id);
+               if(e.style.display == 'block')
+                  e.style.display = 'none';
+               else
+                  e.style.display = 'block';
+            }
+        //-->
+        </script>
+    
+        <h1><center>test Statistics</center></h1>
+        <p>test algorithm for rare set ups</p>
+        <h3>Vital Stats (1993-02-01 &nbsp&nbsp till &nbsp&nbsp 2013-08-01)</h3>
+        
+        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+            <TR>
+                <TH>Filter</TH><TH>N</TH><TH>N/Yr</TH><TH>Win_Perc</TH><TH>Profit_Factor</TH><TH>Mean_return</TH><TH>StDev</TH><TH>ROI</TH><TH>ROI Ann</TH><TH>Max_DD</TH>
+            </TR>
+            <TR> <TD>All</TD><TD>21 </TD> <TD>1.0441 </TD><TD>0.7143 </TD> <TD>6.6204 </TD> <TD>0.00868 </TD><TD>0.0222 </TD> <TD>1.1930 </TD> <TD>1.0088 </TD><TD>-0.0577 </TD></TR>
+       </TABLE>
+  
+        <h3>Winners / Losers</h3>
+        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+            <TR>
+                <TH> </TH><TH>N</TH><TH>Mean_return</TH><TH>StDev</TH><TH>Max_in_Row</TH><TH>Max_Ret</TH>
+            </TR>
+            <TR> <TD>Winners</TD><TD>15 </TD> <TD>0.01954 </TD><TD>0.0139 </TD><TD>4.0000  </TD><TD>0.0509 </TD></TR>
+            <TR> <TD>Losers</TD><TD>6 </TD> <TD>-0.01844 </TD><TD>0.0145 <TD>2 </TD><TD>-0.0485 </TD></TR>
+        </TABLE>  
+        
+        <img src="test.png" alt="Equity Curve" width="700" height="350">
+        
+        
+        <script type="text/javascript" src="collapse_sec.js"></script>
+
+        <div style="background:grey" class="sitesection" id="test_tradediv">
+            <p class="expand-one"><a href="#test_trades=div" onclick="toggle_visibility('test_trades');">test Trade Breakdown</a></p>
+            <div class="trade_breakdown" id="test_trades">
+                <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+                    <TR>
+                        <TH>#</TH><TH>Sym</TH><TH>Shares</TH><TH>Open Date</TH><TH>Price</TH><TH>Close Date</TH><TH>Price</TH><TH>Return</TH>
+                    </TR>
+                    <TR>
+                        <TD>1</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1993-03-12</TD>
+                        <TD>449.83</TD>
+                        <TD>1993-03-18</TD>
+                        <TD>451.89</TD>
+                        <TD bgcolor=" Green ">0.458%</TD>
+                    </TR>
+                    <TR>
+                        <TD>2</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1994-03-11</TD>
+                        <TD>466.44</TD>
+                        <TD>1994-03-17</TD>
+                        <TD>470.9</TD>
+                        <TD bgcolor=" Green ">0.956%</TD>
+                    </TR>
+                    <TR>
+                        <TD>3</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1995-03-10</TD>
+                        <TD>489.57</TD>
+                        <TD>1995-03-16</TD>
+                        <TD>495.41</TD>
+                        <TD bgcolor=" Green ">1.193%</TD>
+                    </TR>
+                    <TR>
+                        <TD>4</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1996-03-08</TD>
+                        <TD>633.5</TD>
+                        <TD>1996-03-14</TD>
+                        <TD>640.87</TD>
+                        <TD bgcolor=" Green ">1.163%</TD>
+                    </TR>
+                    <TR>
+                        <TD>5</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1997-03-14</TD>
+                        <TD>793.17</TD>
+                        <TD>1997-03-20</TD>
+                        <TD>782.65</TD>
+                        <TD bgcolor=" Red ">-1.326%</TD>
+                    </TR>
+                    <TR>
+                        <TD>6</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1998-03-13</TD>
+                        <TD>1068.61</TD>
+                        <TD>1998-03-19</TD>
+                        <TD>1089.74</TD>
+                        <TD bgcolor=" Green ">1.977%</TD>
+                    </TR>
+                    <TR>
+                        <TD>7</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>1999-03-12</TD>
+                        <TD>1294.59</TD>
+                        <TD>1999-03-18</TD>
+                        <TD>1316.55</TD>
+                        <TD bgcolor=" Green ">1.696%</TD>
+                    </TR>
+                    <TR>
+                        <TD>8</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2000-03-10</TD>
+                        <TD>1395.07</TD>
+                        <TD>2000-03-16</TD>
+                        <TD>1458.47</TD>
+                        <TD bgcolor=" Green ">4.545%</TD>
+                    </TR>
+                    <TR>
+                        <TD>9</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2001-03-09</TD>
+                        <TD>1233.42</TD>
+                        <TD>2001-03-15</TD>
+                        <TD>1173.56</TD>
+                        <TD bgcolor=" Red ">-4.853%</TD>
+                    </TR>
+                    <TR>
+                        <TD>10</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2002-03-08</TD>
+                        <TD>1164.31</TD>
+                        <TD>2002-03-14</TD>
+                        <TD>1153.04</TD>
+                        <TD bgcolor=" Red ">-0.968%</TD>
+                    </TR>
+                    <TR>
+                        <TD>11</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2003-03-14</TD>
+                        <TD>833.27</TD>
+                        <TD>2003-03-20</TD>
+                        <TD>875.67</TD>
+                        <TD bgcolor=" Green ">5.088%</TD>
+                    </TR>
+                    <TR>
+                        <TD>12</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2004-03-12</TD>
+                        <TD>1120.57</TD>
+                        <TD>2004-03-18</TD>
+                        <TD>1122.32</TD>
+                        <TD bgcolor=" Green ">0.156%</TD>
+                    </TR>
+                    <TR>
+                        <TD>13</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2005-03-11</TD>
+                        <TD>1200.08</TD>
+                        <TD>2005-03-17</TD>
+                        <TD>1190.21</TD>
+                        <TD bgcolor=" Red ">-0.822%</TD>
+                    </TR>
+                    <TR>
+                        <TD>14</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2006-03-10</TD>
+                        <TD>1281.42</TD>
+                        <TD>2006-03-16</TD>
+                        <TD>1305.33</TD>
+                        <TD bgcolor=" Green ">1.866%</TD>
+                    </TR>
+                    <TR>
+                        <TD>15</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2007-03-09</TD>
+                        <TD>1402.84</TD>
+                        <TD>2007-03-15</TD>
+                        <TD>1392.28</TD>
+                        <TD bgcolor=" Red ">-0.753%</TD>
+                    </TR>
+                    <TR>
+                        <TD>16</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2008-03-14</TD>
+                        <TD>1288.14</TD>
+                        <TD>2008-03-28</TD>
+                        <TD>1315.22</TD>
+                        <TD bgcolor=" Green ">2.102%</TD>
+                    </TR>
+                    <TR>
+                        <TD>17</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2009-03-13</TD>
+                        <TD>756.55</TD>
+                        <TD>2009-03-19</TD>
+                        <TD>784.04</TD>
+                        <TD bgcolor=" Green ">3.634%</TD>
+                    </TR>
+                    <TR>
+                        <TD>18</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2010-03-12</TD>
+                        <TD>1149.99</TD>
+                        <TD>2010-03-18</TD>
+                        <TD>1165.83</TD>
+                        <TD bgcolor=" Green ">1.377%</TD>
+                    </TR>
+                    <TR>
+                        <TD>19</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2011-03-11</TD>
+                        <TD>1304.28</TD>
+                        <TD>2011-03-17</TD>
+                        <TD>1273.72</TD>
+                        <TD bgcolor=" Red ">-2.343%</TD>
+                    </TR>
+                    <TR>
+                        <TD>20</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2012-03-09</TD>
+                        <TD>1370.87</TD>
+                        <TD>2012-03-15</TD>
+                        <TD>1402.6</TD>
+                        <TD bgcolor=" Green ">2.315%</TD>
+                    </TR>
+                    <TR>
+                        <TD>21</TD>
+                        <TD>^GSPC</TD>
+                        <TD>20</TD>
+                        <TD>2013-03-08</TD>
+                        <TD>1551.18</TD>
+                        <TD>2013-03-14</TD>
+                        <TD>1563.23</TD>
+                        <TD bgcolor=" Green ">0.777%</TD>
+                    </TR>
+                </TABLE>
+            </div>            
+        </div>
+
+
+</body>
+</html>
