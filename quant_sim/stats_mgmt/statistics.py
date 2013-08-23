@@ -225,17 +225,19 @@ class Statistics(object):
 
 
     def update(self, env, closed=None):
+        if type(closed) != list and closed != None:
+            closed = [closed]
         closed_n = len(closed) if closed != None else 0
         for stat_key in self.sorted_stat_keys:
             if self.calcs['all'][stat_key].on_bar:
                 for filter_key, filter_func in self.filters:
                     self.calcs[filter_key][stat_key].update(env, self.stats, filter_key, None)
                     self.stats[filter_key][stat_key] = self.calcs[filter_key][stat_key].val
-            elif self.calcs['all'][stat_key].on_trade and closed != None and self.n != closed_n:
+            elif self.calcs['all'][stat_key].on_trade and closed != None and closed_n > 0:
                 for filter_key, filter_func in self.filters:
-                    for trade in closed[self.n:]:
+                    for trade in closed:
                         if filter_func(trade):
                             self.calcs[filter_key][stat_key].update(env, self.stats, filter_key, trade)
                             self.stats[filter_key][stat_key] = self.calcs[filter_key][stat_key].val
-        self.n = closed_n
+        self.n += closed_n
 

@@ -19,7 +19,6 @@ o   [1] add a way to keep track of weekly, monthly, yearly returns, and associat
 o   [2] add order ammount intelligence to order_mngr self.order('buy_all')
 o   [2] order validation (checking that shares * price <= balance etc)
 o   [2] option to liquidate all outstanding floating positions at end of simulation, default True
-o   [2] rework stats manager to accept only new trades so it can be used as a standalone stat manager in another application
 o   [3] add logging to all modules
 o   [3] add ability to record stats, for each day (may be too memory intensive)
 o   [3] add docstrings to all major classes algorithm, simulator, report, statistics, stat, metric
@@ -62,3 +61,4 @@ o   [2] ability to watch/record variables inside an Algorithm and have them outp
 o   [2] rethink how past data is accessed. via env or directly from data object thus needing to define a history lookup for each
 o   [1] major rework of order_mngr avail_bal, float_bal needs to be done
 o   [2] rework order_mngr so it can act as a stand alone order_mngr in another application
+o   [2] rework stats manager to accept only new trades so it can be used as a standalone stat manager in another application

@@ -122,7 +122,7 @@ class Algorithm(object):
             else:
                 raise
         self.last_now = env.now_dt
-        self.stats_mngr.update(env,self.order_mngr.closed_pos)
+        self.stats_mngr.update(env,self.order_mngr.closed_pos[self.stats_mngr.n:])
         self.record({})
         
     def add_metric(self, metrics):
