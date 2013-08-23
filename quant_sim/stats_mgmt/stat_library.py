@@ -1,8 +1,7 @@
 
 import math
 
-from quant_sim.math.stat import Stat
-
+from quant_sim.stats_mgmt.stat import Stat
 
 class N(Stat):
     def process_data(self, env, stats, fk, trade):
@@ -178,9 +177,9 @@ all_stats = [N(id='n',val=0),
              Mean_Btw_Tr(id='mean_btw_tr',val=0.0),
              Mean_Tr_Dur(id='mean_tr_dur',val=0.0),
              Date(id='start_dt',func=min),
-             Date(id='end_dt',func=max),
+             Date(id='end_dt',on_bar=True,func=max),
              Generic(id='years', reqs=['start_dt', 'end_dt'], on_bar=True, func=lambda e, s, *args: (s['all']['end_dt'] - s['all']['start_dt']).days / 365.25),
-             Generic(id='trades/yr', val=0.0, reqs=['years', 'n'], func=lambda e, s, fk, t: s[fk]['n'] / s[fk]['years']),
+             Generic(id='trades/yr', val=0.0, reqs=['years', 'n'], on_bar=True, func=lambda e, s, fk, t: s[fk]['n'] / s[fk]['years']),
              Generic(id='roi_ann', val=0.0, reqs=['roi', 'years'], func=lambda e, s, fk, t: s[fk]['roi'] ** (1.0 / s[fk]['years'])),
              Generic(id='stdev_ann', val=0.0, reqs=['trades/yr', 'stdev_theo'], func=lambda e, s, fk, t: s[fk]['stdev_theo'] * (s[fk]['trades/yr'] ** 0.5)),
              Generic(id='clamar_ratio', val=0.0, reqs=['roi_ann', 'max_dd'], func=lambda e, s, fk, t: s[fk]['roi_ann'] / -s[fk]['max_dd']),

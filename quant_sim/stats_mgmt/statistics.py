@@ -3,8 +3,8 @@ import datetime as dt
 from copy import deepcopy
 
 
-from quant_sim.math.filter_library import default_filters
-from quant_sim.math.stat_library import all_stats
+from quant_sim.stats_mgmt.filter_library import default_filters
+from quant_sim.stats_mgmt.stat_library import all_stats
 from quant_sim.tools.helpers import toposort2
 
 
@@ -237,6 +237,5 @@ class Statistics(object):
                         if filter_func(trade):
                             self.calcs[filter_key][stat_key].update(env, self.stats, filter_key, trade)
                             self.stats[filter_key][stat_key] = self.calcs[filter_key][stat_key].val
-
         self.n = closed_n
 

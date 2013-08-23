@@ -87,7 +87,7 @@ def FIFO(sid, shares, price, active_trades):
     return resulting_orders
 
 class Order_Manager(object):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.active_pos = OrderedDict()
         self.closed_pos = []
         self.now_dt = None

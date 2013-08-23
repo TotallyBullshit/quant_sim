@@ -46,8 +46,8 @@ class Algorithm(object):
             eod = env['eod']['SPY']
             self.order(eod, self.sharess)
     """
-    def __init__(self, sid, *args, **kwargs):
-        self.id = sid
+    def __init__(self, *args, **kwargs):
+        self.id = kwargs.get('id','')
         self.desc = kwargs.get('desc','description n/a')
         self.delay_start = kwargs.get('delay_start',0)
         self.ignore_old = kwargs.get('ignore_old',True)
@@ -56,7 +56,7 @@ class Algorithm(object):
         self.stats_mngr = Statistics(*args, **kwargs)
         self.metrics = Environment()
         self.metrics.funcs = OrderedDict()
-        self.now = None
+        self.now_dt = None
         self.last_now = None
         self.initialize(*args, **kwargs)
     
@@ -103,12 +103,13 @@ class Algorithm(object):
         self.recorded = OrderedDict()
         self.record_fn = fn if fn != '' else self.id+ '_record.csv'
         with open(self.record_fn, 'w') as f:
-            f.write('Date,'+','.join(recorded_vars))
+            f.write('Date,'+','.join(recorded_vars)+'\n')
         self.recorded_keys = recorded_vars
+        self.last_recorded_dt = None
         self.cache_recorded = cache
         
     def update_strat(self, env, *args, **kwargs):
-        self.now = env.now_dt
+        self.now_dt = env.now_dt
         if self.n < self.delay_start: 
             self.last_now = env.now_dt
             return
@@ -122,7 +123,8 @@ class Algorithm(object):
                 raise
         self.last_now = env.now_dt
         self.stats_mngr.update(env,self.order_mngr.closed_pos)
-
+        self.record({})
+        
     def add_metric(self, metrics):
         if type(metrics) != list:
             metrics = [metrics]
@@ -181,22 +183,25 @@ class Algorithm(object):
                 self.record({'gap_size': eod.o - eod[1].c, 'open_price': eod.o})
                 self.record({'action': 'buy'})
         """
-
-        f = open(self.record_fn, 'a')
-        if self.now not in self.recorded:
-            self.recorded[self.now] = OrderedDict()
-            if self.now != self.last_now and self.last_now in self.recorded:
-                for k in self.recorded_keys:
-                    f.write('%s,' % self.recorded[self.last_now].get(k,''))
-            f.write('\n%s,'%(self.now))
-            if not self.cache_recorded and self.last_now != None:
-                self.recorded.pop(self.last_now)
-        elif self.now == self.last_now:
-            self.recorded[self.now] = OrderedDict()
-            f.write('\n%s,'%(self.now))
-        for k, v in recorded_vars.items():
-            self.recorded[self.now][k] = v
-        f.close()
+        if len(recorded_vars) == 0 and self.last_recorded_dt in self.recorded:
+            f = open(self.record_fn, 'a')
+            f.write('%s,'%(self.last_recorded_dt))
+            for k in self.recorded_keys:
+                f.write('%s,' % self.recorded[self.last_recorded_dt].get(k,''))
+            f.write('\n')
+            f.close()
+            if not self.cache_recorded:
+                self.recorded.pop(self.last_recorded_dt)
+            self.last_recorded_dt = None
+        elif len(recorded_vars) == 0:
+            return
+        else:
+            if self.now_dt not in self.recorded:
+                self.recorded[self.now_dt] = OrderedDict()
+            for k, v in recorded_vars.items():
+                self.recorded[self.now_dt][k] = v
+            self.last_recorded_dt = self.now_dt
+            
 
     def initialize(self, *args, **kwargs):
         """
