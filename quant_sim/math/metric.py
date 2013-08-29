@@ -1,4 +1,5 @@
 from quant_sim.tools.helpers import create_lambda
+from quant_sim.errors import Date_Not_In_History_Error
 
 class Metric(object):
     """
@@ -14,7 +15,16 @@ class Metric(object):
          needs to be unique to sid otherwise 
     val : any_type, default None, optional
     window : int, default 0, optional
-             This is how long a value is tracked for
+             This is how long an input value is tracked for. Not the
+             metric itself but the inputs to the metric.
+             i.e. for a Moving Average of the value inputs [9, 6, 4, 2, 8, 3, 1] 
+             with most recent submitted value first a window=3, would mean
+            self.history = [9,6,4]
+    cache_n : int, default 0, optional
+            This is how long the metric value is tracked for.
+            In the above "window" example. The computed moving average with a 
+            window of 3 would be [6.33, 4, 4.66, 4.33, 4] with the most current
+            metric value first. If cache_n = 2 then self.cache = [6.33, 4]
     func : function, default None, optional
            used as a helper method to extract values from env
            and transform them to fit the users needs to pass back
@@ -78,11 +88,11 @@ class Metric(object):
             x = env
             if self.func(env) != None:
                 x = self.func(env)
-        except:
+        except Date_Not_In_History_Error as e:
             if self.ignore_old:
                 return
             else:
-                raise
+                raise e
         self.n += 1
         # newest val goes at beginning of list to make get_history
         # work easier when accessing the oldest value

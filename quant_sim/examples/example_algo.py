@@ -2,7 +2,7 @@ import math
 
 from quant_sim.tools.helpers import create_lambda
 from quant_sim.finances.algorithm import Algorithm
-from quant_sim.math.metric_library import MA
+from quant_sim.math.metric_library import MA, CountIf
 
 class Alg_001(Algorithm):
     def initialize(self, *args, **kwargs):
@@ -23,12 +23,12 @@ class Alg_001(Algorithm):
             self.order(sid, -20, eod0.c)
         elif eod0.d.month == 3 and eod0.d.day > 27 and self.order_mngr.active_pos[sid]['n'] > 0:
             self.order(sid, -20, eod0.c)
-            
+
 class Alg_002(Algorithm):
     def initialize(self, *args, **kwargs):
         self.id = 'labor_fri-c_tues-o'
         self.desc = 'Labor Day'
-        self.ignore_old = False
+        self.ignore_old = True
         self.sid = kwargs.get('sid', 'SPY')
         self.id += self.sid
         #self.helper = create_lambda('lambda env, metrics:', helper)
@@ -37,14 +37,14 @@ class Alg_002(Algorithm):
 
     def process_data(self, env,  *args, **kwargs):
         sid = self.sid
-        eod0 = env.get(sid,0)
+        eod0 = env.get('SPY',0)
         eod1 = env.get(sid,1)
         shares = math.floor(self.order_mngr.active_pos['all']['bal'] / eod0.c)
         if eod0.next.d.month == 9 and eod0.next.dow == 1 and eod0.dow == 4:
             self.record({'c':eod0.c, '50sma':self.metrics['50sma'], 'co-dir':1 if eod0.o > eod1.c else 0, 'co-ret':eod0.o / eod1.c - 1.0,'oc-dir':1 if eod0.c > eod0.o else 0, 'oc-ret':eod0.c / eod0.o - 1.0})
-            self.order(sid, shares , eod0.c)
-        elif eod0.d.month == 9 and eod0.dow == 1 and 1 < eod0.d.day < 9:
-            self.order(sid, -self.order_mngr.active_pos[sid]['shares'], eod0.o)
+            self.order(sid, 10 , eod0.c)
+        #elif eod0.d.month == 9 and eod0.dow == 1 and 1 < eod0.d.day < 9:
+        #    self.order(sid, -self.order_mngr.active_pos[sid]['shares'], eod0.o)
 
 class Alg_003(Algorithm):
     def initialize(self, *args, **kwargs):
@@ -133,3 +133,50 @@ class Alg_006(Algorithm):
             self.order(sid, shares , eod0.o)
         elif eod0.next.d.month == 9 and eod0.next.dow == 1 and eod0.dow == 4 and self.order_mngr.active_pos['all']['n'] > 0:
             self.order(sid, -self.order_mngr.active_pos[sid]['shares'], eod0.c)
+
+class Alg_007(Algorithm):
+    def initialize(self, *args, **kwargs):
+        self.id = '1%_gap_down'
+        self.desc = '1% gap down'
+        self.sid = kwargs.get('sid', 'SPY')
+        self.ignore_old = False
+        #self.helper = create_lambda('lambda env, metrics:', helper)
+        #self.initialize_recorder(['c','50sma','co-dir','co-ret','oc-dir','oc-ret'], False, 'J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/records/'+self.id+'record.csv')
+        #self.add_metric(MA(id='50sma',val=0.0,window=50,func="env['SPY'].c"))
+
+    def process_data(self, env,  *args, **kwargs):
+        sid = self.sid
+        eod0 = env.get(sid,0)
+        eod1 = env.get(sid,1)
+        shares = math.floor(self.order_mngr.active_pos['all']['bal'] / eod0.o)
+        if eod0.o / eod1.c - 1.0 > 0.01:
+            self.order(sid, shares , eod0.o)
+            self.order(sid, -shares , eod0.c)
+            
+class Alg_008(Algorithm):
+    def initialize(self, *args, **kwargs):
+        self.id = '3x lower h l c'
+        self.desc = '3x lower h l c'
+        self.sid = kwargs.get('sid', 'SPY')
+        self.ignore_old = False
+        self.x = 3
+        self.add_metric(CountIf(cache_n=3, id='lh-ll-lc',val=0.0,window=5,func="env['SPY'].c < env.get('SPY',1).c and env['SPY'].h < env.get('SPY',1).h and env['SPY'].l < env.get('SPY',1).l"))
+        #self.helper = create_lambda('lambda env, metrics:', helper)
+        #self.initialize_recorder(['c','50sma','co-dir','co-ret','oc-dir','oc-ret'], False, 'J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/records/'+self.id+'record.csv')
+        #self.add_metric(MA(id='50sma',val=0.0,window=50,func="env['SPY'].c"))
+
+    def process_data(self, env,  *args, **kwargs):
+        sid = self.sid
+        eod0 = env.get(sid,0)
+        eod1 = env.get(sid,1)
+        metric = self.metrics['lh-ll-lc']
+        shares = math.floor(self.order_mngr.active_pos['all']['bal'] / eod0.o)
+        if metric > 0:
+            print eod0.d, metric, self.metrics.funcs['lh-ll-lc'].cache
+        if metric == 3 and eod0.dow == 0:
+            self.order(sid, 10 , eod0.c)
+        if self.order_mngr.active_pos['all']['n'] > 0:
+            for pid,pos in self.order_mngr.active_pos[sid]['positions'].items():
+                if (env.now_dt - pos.open_dt).days >= self.x:
+                    self.order(sid, -10 , eod0.c)
+        

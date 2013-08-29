@@ -10,7 +10,6 @@ o   metrics are calculated before strategy is processed. This means a strategy u
 
 --- TODO ---
 o   [1] add topological sorting to Algorithm metrics, force users to use OrderedDict
-o   [1] create special Error for data does not exist
 o   [1] add active_order updating so that max / min intra day values are recorded
         as well as statistics which rely on datetime such as annualized_roi
         good places to update are before ordering and at end of trading day
@@ -18,7 +17,6 @@ o   [1] add active_order updating so that max / min intra day values are recorde
 o   [1] add a way to keep track of weekly, monthly, yearly returns, and associated statistics, perhaps a new reporter
 o   [2] add order ammount intelligence to order_mngr self.order('buy_all')
 o   [2] order validation (checking that shares * price <= balance etc)
-o   [2] option to liquidate all outstanding floating positions at end of simulation, default True
 o   [3] add logging to all modules
 o   [3] add ability to record stats, for each day (may be too memory intensive)
 o   [3] add docstrings to all major classes algorithm, simulator, report, statistics, stat, metric
@@ -50,6 +48,8 @@ o   slippage in order_mngr
 o   proper avail_bal and float_bal in order_mngr after each trade
 
 --- COMPLETE ---
+o   [2] option to liquidate all outstanding floating positions at end of simulation, default False
+o   [1] create special Error for data does not exist
 o   [1] begin computing metrics at start of history so values are up-to-date even if algorithm starts at a later date
 o   [3] implement self.delay_start in quant_sim.algorithm. This gives user another option instead of ignoring all data errors
 o   [3] Give commission model access to (sid, shares, price) That way more complex commission models can be built based on sid, 

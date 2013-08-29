@@ -4,6 +4,7 @@ from collections import OrderedDict
 from quant_sim.stats_mgmt.statistics import Statistics
 from quant_sim.order_mgmt.order_mngr import Order_Manager
 from quant_sim.environment import Environment
+from quant_sim.errors import Date_Not_In_History_Error
 
 class Algorithm(object):
     """
@@ -58,6 +59,7 @@ class Algorithm(object):
         self.metrics.funcs = OrderedDict()
         self.now_dt = None
         self.last_now = None
+        self.recorded_keys = None
         self.initialize(*args, **kwargs)
     
     def initialize_recorder(self, recorded_vars, cache=False, fn=''):
@@ -105,7 +107,6 @@ class Algorithm(object):
         with open(self.record_fn, 'w') as f:
             f.write('Date,'+','.join(recorded_vars)+'\n')
         self.recorded_keys = recorded_vars
-        self.last_recorded_dt = None
         self.cache_recorded = cache
         
     def update_strat(self, env, *args, **kwargs):
@@ -116,15 +117,16 @@ class Algorithm(object):
         self.order_mngr.update(env)
         try: 
             self.process_data(env)
-        except:
+        except Date_Not_In_History_Error as e:
             if self.ignore_old:
                 return
             else:
-                raise
+                raise e
         self.last_now = env.now_dt
         self.stats_mngr.update(env,self.order_mngr.closed_pos[self.stats_mngr.n:])
-        self.record({})
-        
+        if self.recorded_keys != None:
+            self.record({})
+
     def add_metric(self, metrics):
         if type(metrics) != list:
             metrics = [metrics]

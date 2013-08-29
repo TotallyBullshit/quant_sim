@@ -66,16 +66,17 @@
             <div class="trade_breakdown" id="$(id)_trades">
                 <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
                     <TR>
-                        <TH>#</TH><TH>Sym</TH><TH>Shares</TH><TH>Open Date</TH><TH>Price</TH><TH>Close Date</TH><TH>Price</TH><TH>Return</TH>
+                        <TH>#</TH><TH>SID</TH><TH>Open Date</TH><TH>Shares</TH><TH>Price</TH><TH>Close Date</TH><TH>Shares</TH><TH>Price</TH><TH>Return</TH>
                     </TR>
                     #for $i,$trade in $enumerate($order_mngr.closed_pos)
                     <TR>
                         <TD>#echo $i+1#</TD>
                         <TD>$trade.sid</TD>
-                        <TD>$trade.shares</TD>
                         <TD>$trade.open_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.shares</TD>
                         <TD>$trade.open_p</TD>
                         <TD>$trade.close_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.close_s</TD>
                         <TD>$trade.close_p</TD>
                         <TD bgcolor="#if $trade.theo_ret > 0.0# Green #else# Red #end if#">#echo '%2.3f'%($trade.theo_ret * 100.0)#%</TD>
                     </TR>

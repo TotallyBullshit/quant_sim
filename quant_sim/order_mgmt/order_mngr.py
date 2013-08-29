@@ -55,12 +55,13 @@ class Position(object):
                                            self.last_p
                                                 )
         else:
-            return 'CLOSED: %s,%d,%2.2f : %2.2f : %s,%2.2f = %2.4f' % (
+            return 'CLOSED: %s,%d,%2.2f : %2.2f : %s,%d,%2.2f = %2.4f' % (
                                            self.open_dt.strftime('%Y-%m-%d'),
                                            self.shares,
                                            self.open_p,
                                            self.last_p,
                                            self.close_dt.strftime('%Y-%m-%d'),
+                                           self.close_s,
                                            self.close_p,
                                            self.theo_ret
                                                 )
@@ -124,6 +125,14 @@ class Order_Manager(object):
         else:
             self.active_pos[sid]['basis'] = ((self.active_pos[sid]['shares'] * self.active_pos[sid]['basis']) + (shares * price)) / (self.active_pos[sid]['shares'] + shares)
         self.active_pos[sid]['shares'] += shares
+
+    def logic_order(self, rule, sid='any', shares=0, price=0):
+        if rule == 'close_all':
+            for sid,data in self.active_pos.items():
+                for pid, pos in data['positions'].items():
+                        self.order(sid, -pos.shares, pos.last_p)
+        elif rule == 'open_all':
+            pass
 
     def order(self, sid, shares, price):
         self.initialize_position(sid)

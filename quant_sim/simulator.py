@@ -15,7 +15,7 @@
 
 import datetime as dt
 
-from quant_sim.finances.environment import Environment
+from quant_sim.environment import Environment
 
 class Simulator(object):
     """
@@ -51,7 +51,8 @@ class Simulator(object):
         self.start_dt = start_dt
         self.end_dt = end_dt
         self.algos = []
-        self.calendar = kwargs.get('calendar', 'eod')
+        self.calendar = kwargs.get('calendar', None)
+        self.liquidate_all = kwargs.get('liquidate_all', True)
         self.env = Environment()
 
     def add_algo(self, algos):
@@ -99,6 +100,11 @@ class Simulator(object):
         """
         self.calendar = calendar
 
+    def liquidate(self):
+        for algo in self.algos:
+            algo.order_mngr.logic_order('close_all')
+            algo.stats_mngr.update(self.env,algo.order_mngr.closed_pos[algo.stats_mngr.n:])
+
     def run(self,driver='eod'):
         for now in self.calendar:
             self.env.update(now)
@@ -106,6 +112,8 @@ class Simulator(object):
                 algo.update_metrics(self.env)
                 if self.start_dt <= now <= self.end_dt:
                     algo.update_strat(self.env)
+        if self.liquidate_all:
+            self.liquidate()
 
 if __name__ == '__main__':
     print 'Simulator Test'

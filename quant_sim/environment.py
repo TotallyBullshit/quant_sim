@@ -1,6 +1,8 @@
 import datetime as dt
 from collections import OrderedDict
 
+from quant_sim.errors import Date_Not_In_History_Error, SID_Error
+
 class Environment(object):
     """
     Simulator for backtesting
@@ -86,7 +88,7 @@ class Environment(object):
 
     def get(self, sid, left, right=None, default='nan'):
         if sid not in self.data:
-            self.raise_error(KeyError, "'%s' not in data"%(left), default)
+            self.raise_error(SID_Error, "'%s' not in data"%(sid), default)
         # Handles left='2012-04-15'
         if type(left) == str:
             left = dt.datetime.strptime(left, '%Y-%m-%d')
@@ -96,14 +98,14 @@ class Environment(object):
         if type(left) == int and right == None:
             left = self.now_int - left
             if left < 0: 
-                self.raise_error(KeyError, "'[%s]' index not in %s data"%(left, sid), default)
+                self.raise_error(Date_Not_In_History_Error, "'[%s]' index not in %s data"%(left, sid), default)
             left = self.calendar[left]
         # Handles left=dt.datetime(2012,4,15)
         if type(left) == dt.datetime and right == None:
             if left not in self.data[sid]:
-                self.raise_error(KeyError, "'%s' not in %s data"%(left, sid), default)
+                self.raise_error(Date_Not_In_History_Error, "'%s' not in %s data"%(left, sid), default)
             elif left > self.now_dt:
-                self.raise_error(KeyError, "'%s' is in the future"%(left), default)
+                self.raise_error(Date_Not_In_History_Error, "'%s' is in the future"%(left), default)
             else:
                 return self.data[sid][left]
         # Handles left=5, right=3
@@ -125,9 +127,9 @@ class Environment(object):
         # Handles left=5, right=3
         if type(left) == int and type(right) == int:
             if left > self.now_int or right > self.now_int:
-                raise KeyError("'%s' is in the future"%(self.calendar[max(left,right)]))
+                raise Date_Not_In_History_Error("'%s' is in the future"%(self.calendar[max(left,right)]))
             elif left < 0 or right < 0:
-                raise KeyError("'%s' not in %s data"%(min(left,right), sid))
+                raise Date_Not_In_History_Error("'%s' not in %s data"%(min(left,right), sid))
             if left > right:
                 dates = self.calendar[left:right-1:-1]
                 return [self.data[sid].get(d,None) for d in dates]
@@ -139,9 +141,9 @@ class Environment(object):
             if key in self.data and self.now_dt in self.data[key]:
                 return self.data[key][self.now_dt]
             elif key in self.data and self.now_dt not in self.data[key]:
-                raise KeyError("'%s' not in %s data"%(self.now_dt.strftime('%Y-%m-%d'), key))
+                raise Date_Not_In_History_Error("'%s' not in %s data"%(self.now_dt.strftime('%Y-%m-%d'), key))
             else:
-                raise KeyError("'%s' not in data"%(key))
+                raise SID_Error("'%s' not in data"%(key))
             
 if __name__ == '__main__':
     from quant_sim.sources.yeod_source import YEOD_Source
