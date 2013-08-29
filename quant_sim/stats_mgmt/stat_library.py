@@ -90,8 +90,11 @@ class Profit_Fact(Stat):
         win_perc = self.up_n / float(self.n)
         if win_perc == 1.0 or self.theo_dn_sum == 0.0: 
             return 'inf'
-        return ((win_perc * (self.theo_up_sum / self.n)) / 
-                 -((1.0 - win_perc) * (self.theo_dn_sum / self.n)))
+        elif win_perc == 0.0:
+            return 0.0
+        print self.n, self.up_n, win_perc,(self.theo_dn_sum / (self.n - self.up_n))
+        return ((win_perc * (self.theo_up_sum / self.up_n)) / 
+                 -((1.0 - win_perc) * (self.theo_dn_sum / (self.n-self.up_n))))
 
 class Max_DD(Stat):
     def initialize(self, *args, **kwargs):

@@ -171,9 +171,7 @@ class Alg_008(Algorithm):
         eod1 = env.get(sid,1)
         metric = self.metrics['lh-ll-lc']
         shares = math.floor(self.order_mngr.active_pos['all']['bal'] / eod0.o)
-        if metric > 0:
-            print eod0.d, metric, self.metrics.funcs['lh-ll-lc'].cache
-        if metric == 3 and eod0.dow == 0:
+        if metric >= 3 and eod0.dow == 0 and self.order_mngr.active_pos['all']['n'] == 0:
             self.order(sid, 10 , eod0.c)
         if self.order_mngr.active_pos['all']['n'] > 0:
             for pid,pos in self.order_mngr.active_pos[sid]['positions'].items():
