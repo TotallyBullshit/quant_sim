@@ -17,9 +17,22 @@ class EOD_Data(object):
         self.div = div
         self.split = split
         self.prev = prev
+        self.wo = self.o if self.prev == None or self.prev.d.strftime('%W') != self.d.strftime('%W') else self.prev.wo
+        self.wh = self.h if self.prev == None or self.prev.d.strftime('%W') != self.d.strftime('%W') else max(self.prev.wh, self.h)
+        self.wl = self.l if self.prev == None or self.prev.d.strftime('%W') != self.d.strftime('%W') else min(self.prev.wl, self.l)
+        self.wc = self.c
+        self.mo = self.o if self.prev == None or self.prev.d.month != self.d.month else self.prev.mo
+        self.mh = self.h if self.prev == None or self.prev.d.month != self.d.month else max(self.prev.mh, self.h)
+        self.ml = self.l if self.prev == None or self.prev.d.month != self.d.month else min(self.prev.ml, self.l)
+        self.mc = self.c
+        self.yo = self.o if self.prev == None or self.prev.d.year != self.d.year else self.prev.yo
+        self.yh = self.h if self.prev == None or self.prev.d.year != self.d.year else max(self.prev.yh, self.h)
+        self.yl = self.l if self.prev == None or self.prev.d.year != self.d.year else min(self.prev.yl, self.l)
+        self.yc = self.c
         self.next = None
         self.metrics = {}
         self.pats = {}
+        print self.d, self.o, self.h, self.l, self.c, self.wh, self.mh
         # self.atr = max(self.atr,abs(self.h-self.prev.c),abs(self.l-self.prev.l)) 
 
     def __getattr__(self, attr):
