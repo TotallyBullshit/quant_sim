@@ -77,7 +77,7 @@ class Metric(object):
         self.reqs = None
         self.cache_n = kwargs.get('cache_n',0)
         self.ignore_old = kwargs.get('ignore_old',True)
-        self.cache = []
+        self.cache = [self.val] * self.cache_n
         self.initialize(*args, **kwargs)
 
     def initialize(self, *args, **kwargs):

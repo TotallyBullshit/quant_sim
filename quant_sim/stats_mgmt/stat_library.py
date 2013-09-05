@@ -92,7 +92,6 @@ class Profit_Fact(Stat):
             return 'inf'
         elif win_perc == 0.0:
             return 0.0
-        print self.n, self.up_n, win_perc,(self.theo_dn_sum / (self.n - self.up_n))
         return ((win_perc * (self.theo_up_sum / self.up_n)) / 
                  -((1.0 - win_perc) * (self.theo_dn_sum / (self.n-self.up_n))))
 
@@ -183,7 +182,7 @@ all_stats = [N(id='n',val=0),
              Date(id='end_dt',on_bar=True,func=max),
              Generic(id='years', reqs=['start_dt', 'end_dt'], on_bar=True, func=lambda e, s, *args: (s['all']['end_dt'] - s['all']['start_dt']).days / 365.25),
              Generic(id='trades/yr', val=0.0, reqs=['years', 'n'], on_bar=True, func=lambda e, s, fk, t: s[fk]['n'] / s[fk]['years']),
-             Generic(id='roi_ann', val=0.0, reqs=['roi', 'years'], func=lambda e, s, fk, t: s[fk]['roi'] ** (1.0 / s[fk]['years'])),
+             Generic(id='roi_ann', val=0.0, reqs=['roi', 'years'], func=lambda e, s, fk, t: s[fk]['roi'] ** (1.0 / s[fk]['years']) - 1.0),
              Generic(id='stdev_ann', val=0.0, reqs=['trades/yr', 'stdev_theo'], func=lambda e, s, fk, t: s[fk]['stdev_theo'] * (s[fk]['trades/yr'] ** 0.5)),
              Generic(id='clamar_ratio', val=0.0, reqs=['roi_ann', 'max_dd'], func=lambda e, s, fk, t: s[fk]['roi_ann'] / -s[fk]['max_dd']),
              Generic(id='sharpe_ratio', val=0.0, reqs=['mean_theo', 'stdev_theo', 'mean_tr_dur'], func=lambda e, s, fk, t: (s[fk]['mean_theo'] - ((0.0186 ** 1 / 252.0))*s[fk]['mean_tr_dur'])/ s[fk]['stdev_theo']),

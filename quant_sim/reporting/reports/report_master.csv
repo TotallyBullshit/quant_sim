@@ -1,0 +1,3 @@
+algo,all:mean_theo,all:max_theo,all:roi,all:roi_ann,all:prof_fact,all:n,all:max_dd,all:win_perc,all:min_theo
+3x Lower H-L-C (SPY, x=1,0.00057,0.0212,1.0223,0.0011,1.1967,41,-0.0602,0.5854,-0.0176,
+3x Lower H-L-C (SPY, x=2,0.00094,0.0277,1.0365,0.0017,1.2321,41,-0.0656,0.6341,-0.0292,

@@ -4,20 +4,23 @@ from Cheetah.Template import Template
 from quant_sim.reporting.graphs import simple_plot
 
 class CSV_Master_Report(Report):
-    def write(self, fn='report.csv'):
-        header = 'algo,'
+    def write(self, keys=None, fn='report.csv'):
+        header = []
         for filter_key, stats_dict in self.algos[0].stats_mngr.calcs.items():
             for stat_key, stat_obj in stats_dict.items():
-                header += '%s:%s,'%(filter_key,stat_key)
+                if keys == None or '%s:%s'%(filter_key,stat_key) in keys:
+                    header += ['%s:%s'%(filter_key,stat_key)]
+        if keys == None:
+            header.sort()
         out = ''
         for algo in self.algos:
             out += '%s,'%(algo.id)
-            for filter_key, stats_dict in algo.stats_mngr.calcs.items():
-                for stat_key, stat_obj in stats_dict.items():
-                    out += '%s,'%(stat_obj)
+            for h in header:
+                fk, sk = h.split(':')
+                out += '%s,'%(algo.stats_mngr.calcs[fk][sk])
             out += '\n'
         f = open(self.report_dir+fn, 'w')
-        f.write(header+'\n'+out)
+        f.write('algo,' + ','.join(header) + '\n' + out)
         f.close()
         
 class Cheetah_Report(Report):

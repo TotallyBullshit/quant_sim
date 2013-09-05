@@ -60,6 +60,7 @@ class Algorithm(object):
         self.now_dt = None
         self.last_now = None
         self.recorded_keys = None
+        self.last_recorded_dt = None
         self.initialize(*args, **kwargs)
     
     def initialize_recorder(self, recorded_vars, cache=False, fn=''):

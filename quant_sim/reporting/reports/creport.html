@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Full Report</title>
+        <title>Blog Report</title>
         <style>
             p.content-one {
                 display:none;
@@ -10,12 +10,29 @@
             div.trade_breakdown {
                 display:none;
             }
-
-            td
+            th, tr, td
+            {
+            border: 1px solid #000000; 
+            border-collapse: collapse;
+            text-align: center;
+            }
+            td.title
             { 
+                border: 0px solid #000000;
                 margin-left: auto;
                 margin-right: auto;
-                text-align: center;
+                text-align: left;
+                align: center
+            }
+
+            td.value
+            { 
+                border: 0px solid #000000;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: right;
+                padding-right: 10px;
+                padding-left: 15px;
                 align: center
             }
             
@@ -35,34 +52,36 @@
         //-->
         </script>
     
-        <h1><center>3x lower h l c Statistics</center></h1>
-        <p>3x lower h l c</p>
-        <h3>Vital Stats (1993-02-01 &nbsp&nbsp till &nbsp&nbsp 2013-08-27)</h3>
+        <TABLE cellpadding="4" border="1" style="table-layout:fixed; word-wrap:break-word;">
+        <TR><TH colspan="4" style="font-size:1.5em; color:DarkBlue;">3x Lower H-L-C (SPY, x=1</TH></TR>
+        <TR><TH colspan="4" style="font-size:1.1em; color:DarkBlue;">01 Feb 1993 &nbsp&nbsp till &nbsp&nbsp 04 Sep 2013</TH></TR>
+        <TR><TD colspan="4">Buy $10,000 SPY at the Close, when market has made a lower H, L and C for the 3rd day in a row<br>Sell at the Close 1 days later</TD></TR>
         
-        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
-            <TR>
-                <TH>Filter</TH><TH>N</TH><TH>N/Yr</TH><TH>Win_Perc</TH><TH>Profit_Factor</TH><TH>Mean_return</TH><TH>StDev</TH><TH>ROI</TH><TH>ROI Ann</TH><TH>Max_DD</TH>
-            </TR>
-            <TR> <TD>All</TD><TD>34 </TD> <TD>1.6532 </TD><TD>0.8235 </TD> <TD>9.9946 </TD> <TD>0.01331 </TD><TD>0.0185 </TD> <TD>1.5589 </TD> <TD>1.0218 </TD><TD>-0.0273 </TD></TR>
-       </TABLE>
-  
-        <h3>Winners / Losers</h3>
-        <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
-            <TR>
-                <TH> </TH><TH>N</TH><TH>Mean_return</TH><TH>StDev</TH><TH>Max_in_Row</TH><TH>Max_Ret</TH>
-            </TR>
-            <TR> <TD>Winners</TD><TD>28 </TD> <TD>0.01796 </TD><TD>0.0169 </TD><TD>10  </TD><TD>0.0857 </TD></TR>
-            <TR> <TD>Losers</TD><TD>6 </TD> <TD>-0.00839 </TD><TD>0.0056 <TD>2 </TD><TD>-0.0183 </TD></TR>
-        </TABLE>  
+        <TR><TH colspan="4" style="background-color:DarkBlue; color:white;">All Trades</TH></TR>
+        <TR><TD class="title">ROI</TD><TD class="value">2.23%</TD><TD class="title">ROI Annualized</TD><TD class="value">0.1073%</TD></TR>
+        <TR><TD class="title">Avg Win/Avg Loss</TD><TD class="value">0.80</TD><TD class="title">Profit Factor</TD><TD class="value">1.1967</TD></TR>
+        <TR><TD class="title">% Profitable</TD><TD class="value">58.54%</TD><TD class="title">Max Draw Down</TD><TD class="value">-6.02%</TD></TR>
+        <TR><TD class="title">Total Trades</TD><TD class="value">41</TD><TD class="title">Trades/Year</TD><TD class="value">1.99</TD></TR>
+        <TR><TD class="title">Winning Trades</TD><TD class="value">24</TD><TD class="title">Losing Trades</TD><TD class="value">16</TD></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">0.0575%</TD><TD class="title">Stdv Return</TD><TD class="value">0.8457%</TD></TR>
         
-        <img src="3x lower h l c.png" alt="Equity Curve" width="700" height="350">
+        <TR><TH colspan="4" style="background-color:green; color:white;">Winning Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">0.5970%</TD><TD class="title">Stdv Return</TD><TD class="value">0.5545%</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">10</TD><TD class="title">Max Return</TD><TD class="value">2.1213%</TD></TR>
         
-        
+        <TR><TH colspan="4" style="background-color:IndianRed; color:white;">Losing Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">-0.7483%</TD><TD class="title">Stdv Return</TD><TD class="value">0.5344%</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">7</TD><TD class="title">Min Return</TD><TD class="value">-1.7613%</TD></TR>
+        </TABLE>
+
+
+        <img src="3x Lower H-L-C (SPY, x=1.png" alt="Equity Curve" width="700" height="350">
+
         <script type="text/javascript" src="collapse_sec.js"></script>
 
-        <div style="background:grey" class="sitesection" id="3x lower h l c_tradediv">
-            <p class="expand-one"><a href="#3x lower h l c_trades=div" onclick="toggle_visibility('3x lower h l c_trades');">3x lower h l c Trade Breakdown</a></p>
-            <div class="trade_breakdown" id="3x lower h l c_trades">
+        <div style="background:grey" class="sitesection" id="3x Lower H-L-C (SPY, x=1_tradediv">
+            <p class="expand-one"><a href="#3x Lower H-L-C (SPY, x=1_trades=div" onclick="toggle_visibility('3x Lower H-L-C (SPY, x=1_trades');">3x Lower H-L-C (SPY, x=1 Trade Breakdown</a></p>
+            <div class="trade_breakdown" id="3x Lower H-L-C (SPY, x=1_trades">
                 <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
                     <TR>
                         <TH>#</TH><TH>SID</TH><TH>Open Date</TH><TH>Shares</TH><TH>Price</TH><TH>Close Date</TH><TH>Shares</TH><TH>Price</TH><TH>Return</TH>
@@ -70,376 +89,998 @@
                     <TR>
                         <TD>1</TD>
                         <TD>SPY</TD>
-                        <TD>1993-07-19</TD>
+                        <TD>1993-11-24</TD>
                         <TD>10</TD>
-                        <TD>44.72</TD>
-                        <TD>1993-07-22</TD>
+                        <TD>46.47</TD>
+                        <TD>1993-11-26</TD>
                         <TD>10</TD>
-                        <TD>44.5</TD>
-                        <TD bgcolor=" Red ">-0.492%</TD>
+                        <TD>46.5</TD>
+                        <TD bgcolor=" Green ">0.065%</TD>
                     </TR>
                     <TR>
                         <TD>2</TD>
                         <TD>SPY</TD>
-                        <TD>1993-11-22</TD>
+                        <TD>1994-01-27</TD>
                         <TD>10</TD>
-                        <TD>46.03</TD>
-                        <TD>1993-11-26</TD>
+                        <TD>47.75</TD>
+                        <TD>1994-01-28</TD>
                         <TD>10</TD>
-                        <TD>46.5</TD>
-                        <TD bgcolor=" Green ">1.021%</TD>
+                        <TD>47.88</TD>
+                        <TD bgcolor=" Green ">0.272%</TD>
                     </TR>
                     <TR>
                         <TD>3</TD>
                         <TD>SPY</TD>
-                        <TD>1994-08-22</TD>
+                        <TD>1994-02-15</TD>
                         <TD>10</TD>
-                        <TD>46.38</TD>
-                        <TD>1994-08-25</TD>
+                        <TD>47.47</TD>
+                        <TD>1994-02-16</TD>
                         <TD>10</TD>
-                        <TD>47.02</TD>
-                        <TD bgcolor=" Green ">1.380%</TD>
+                        <TD>47.44</TD>
+                        <TD bgcolor=" Red ">-0.063%</TD>
                     </TR>
                     <TR>
                         <TD>4</TD>
                         <TD>SPY</TD>
-                        <TD>1996-05-06</TD>
+                        <TD>1994-09-08</TD>
                         <TD>10</TD>
-                        <TD>64.25</TD>
-                        <TD>1996-05-09</TD>
+                        <TD>47.5</TD>
+                        <TD>1994-09-09</TD>
                         <TD>10</TD>
-                        <TD>64.73</TD>
-                        <TD bgcolor=" Green ">0.747%</TD>
+                        <TD>47.0</TD>
+                        <TD bgcolor=" Red ">-1.053%</TD>
                     </TR>
                     <TR>
                         <TD>5</TD>
                         <TD>SPY</TD>
-                        <TD>1996-07-08</TD>
+                        <TD>1994-10-27</TD>
                         <TD>10</TD>
-                        <TD>65.31</TD>
-                        <TD>1996-07-11</TD>
+                        <TD>46.67</TD>
+                        <TD>1994-10-28</TD>
                         <TD>10</TD>
-                        <TD>64.52</TD>
-                        <TD bgcolor=" Red ">-1.210%</TD>
+                        <TD>47.66</TD>
+                        <TD bgcolor=" Green ">2.121%</TD>
                     </TR>
                     <TR>
                         <TD>6</TD>
                         <TD>SPY</TD>
-                        <TD>1998-04-27</TD>
+                        <TD>1995-04-21</TD>
                         <TD>10</TD>
-                        <TD>108.72</TD>
-                        <TD>1998-04-30</TD>
+                        <TD>50.89</TD>
+                        <TD>1995-04-24</TD>
                         <TD>10</TD>
-                        <TD>111.34</TD>
-                        <TD bgcolor=" Green ">2.410%</TD>
+                        <TD>51.48</TD>
+                        <TD bgcolor=" Green ">1.159%</TD>
                     </TR>
                     <TR>
                         <TD>7</TD>
                         <TD>SPY</TD>
-                        <TD>1998-08-31</TD>
+                        <TD>1995-06-13</TD>
                         <TD>10</TD>
-                        <TD>96.0</TD>
-                        <TD>1998-09-03</TD>
+                        <TD>53.94</TD>
+                        <TD>1995-06-14</TD>
                         <TD>10</TD>
-                        <TD>98.56</TD>
-                        <TD bgcolor=" Green ">2.667%</TD>
+                        <TD>53.89</TD>
+                        <TD bgcolor=" Red ">-0.093%</TD>
                     </TR>
                     <TR>
                         <TD>8</TD>
                         <TD>SPY</TD>
-                        <TD>1999-07-26</TD>
+                        <TD>1995-10-12</TD>
                         <TD>10</TD>
-                        <TD>134.75</TD>
-                        <TD>1999-07-29</TD>
+                        <TD>58.44</TD>
+                        <TD>1995-10-13</TD>
                         <TD>10</TD>
-                        <TD>134.41</TD>
-                        <TD bgcolor=" Red ">-0.252%</TD>
+                        <TD>58.63</TD>
+                        <TD bgcolor=" Green ">0.325%</TD>
                     </TR>
                     <TR>
                         <TD>9</TD>
                         <TD>SPY</TD>
-                        <TD>2000-11-13</TD>
+                        <TD>1996-02-22</TD>
                         <TD>10</TD>
-                        <TD>135.56</TD>
-                        <TD>2000-11-16</TD>
+                        <TD>66.12</TD>
+                        <TD>1996-02-23</TD>
                         <TD>10</TD>
-                        <TD>137.38</TD>
-                        <TD bgcolor=" Green ">1.343%</TD>
+                        <TD>65.94</TD>
+                        <TD bgcolor=" Red ">-0.272%</TD>
                     </TR>
                     <TR>
                         <TD>10</TD>
                         <TD>SPY</TD>
-                        <TD>2000-11-20</TD>
+                        <TD>1996-07-26</TD>
                         <TD>10</TD>
-                        <TD>134.69</TD>
-                        <TD>2000-11-24</TD>
+                        <TD>63.72</TD>
+                        <TD>1996-07-29</TD>
                         <TD>10</TD>
-                        <TD>134.84</TD>
-                        <TD bgcolor=" Green ">0.111%</TD>
+                        <TD>63.02</TD>
+                        <TD bgcolor=" Red ">-1.099%</TD>
                     </TR>
                     <TR>
                         <TD>11</TD>
                         <TD>SPY</TD>
-                        <TD>2002-07-22</TD>
+                        <TD>1996-08-16</TD>
                         <TD>10</TD>
-                        <TD>82.2</TD>
-                        <TD>2002-07-25</TD>
+                        <TD>66.84</TD>
+                        <TD>1996-08-19</TD>
                         <TD>10</TD>
-                        <TD>84.0</TD>
-                        <TD bgcolor=" Green ">2.190%</TD>
+                        <TD>66.87</TD>
+                        <TD bgcolor=" Green ">0.045%</TD>
                     </TR>
                     <TR>
                         <TD>12</TD>
                         <TD>SPY</TD>
-                        <TD>2002-08-05</TD>
+                        <TD>1996-09-09</TD>
                         <TD>10</TD>
-                        <TD>83.77</TD>
-                        <TD>2002-08-08</TD>
+                        <TD>66.72</TD>
+                        <TD>1996-09-10</TD>
                         <TD>10</TD>
-                        <TD>90.95</TD>
-                        <TD bgcolor=" Green ">8.571%</TD>
+                        <TD>66.69</TD>
+                        <TD bgcolor=" Red ">-0.045%</TD>
                     </TR>
                     <TR>
                         <TD>13</TD>
                         <TD>SPY</TD>
-                        <TD>2002-09-23</TD>
+                        <TD>1996-10-31</TD>
                         <TD>10</TD>
-                        <TD>83.66</TD>
-                        <TD>2002-09-26</TD>
+                        <TD>70.84</TD>
+                        <TD>1996-11-01</TD>
                         <TD>10</TD>
-                        <TD>85.73</TD>
-                        <TD bgcolor=" Green ">2.474%</TD>
+                        <TD>70.59</TD>
+                        <TD bgcolor=" Red ">-0.353%</TD>
                     </TR>
                     <TR>
                         <TD>14</TD>
                         <TD>SPY</TD>
-                        <TD>2002-10-07</TD>
+                        <TD>1996-12-19</TD>
                         <TD>10</TD>
-                        <TD>79.13</TD>
-                        <TD>2002-10-10</TD>
+                        <TD>75.05</TD>
+                        <TD>1996-12-20</TD>
                         <TD>10</TD>
-                        <TD>80.63</TD>
-                        <TD bgcolor=" Green ">1.896%</TD>
+                        <TD>74.84</TD>
+                        <TD bgcolor=" Red ">-0.280%</TD>
                     </TR>
                     <TR>
                         <TD>15</TD>
                         <TD>SPY</TD>
-                        <TD>2002-11-11</TD>
+                        <TD>1997-03-05</TD>
                         <TD>10</TD>
-                        <TD>88.26</TD>
-                        <TD>2002-11-14</TD>
+                        <TD>80.59</TD>
+                        <TD>1997-03-06</TD>
                         <TD>10</TD>
-                        <TD>90.73</TD>
-                        <TD bgcolor=" Green ">2.799%</TD>
+                        <TD>80.12</TD>
+                        <TD bgcolor=" Red ">-0.583%</TD>
                     </TR>
                     <TR>
                         <TD>16</TD>
                         <TD>SPY</TD>
-                        <TD>2003-06-23</TD>
+                        <TD>1997-08-20</TD>
                         <TD>10</TD>
-                        <TD>98.42</TD>
-                        <TD>2003-06-26</TD>
+                        <TD>94.25</TD>
+                        <TD>1997-08-21</TD>
                         <TD>10</TD>
-                        <TD>98.8</TD>
-                        <TD bgcolor=" Green ">0.386%</TD>
+                        <TD>92.59</TD>
+                        <TD bgcolor=" Red ">-1.761%</TD>
                     </TR>
                     <TR>
                         <TD>17</TD>
                         <TD>SPY</TD>
-                        <TD>2004-02-23</TD>
+                        <TD>1997-10-21</TD>
                         <TD>10</TD>
-                        <TD>114.59</TD>
-                        <TD>2004-02-26</TD>
+                        <TD>97.48</TD>
+                        <TD>1997-10-22</TD>
                         <TD>10</TD>
-                        <TD>114.94</TD>
-                        <TD bgcolor=" Green ">0.305%</TD>
+                        <TD>96.84</TD>
+                        <TD bgcolor=" Red ">-0.657%</TD>
                     </TR>
                     <TR>
                         <TD>18</TD>
                         <TD>SPY</TD>
-                        <TD>2004-05-10</TD>
+                        <TD>1999-01-26</TD>
                         <TD>10</TD>
-                        <TD>108.83</TD>
-                        <TD>2004-05-13</TD>
+                        <TD>126.06</TD>
+                        <TD>1999-01-27</TD>
                         <TD>10</TD>
-                        <TD>109.99</TD>
-                        <TD bgcolor=" Green ">1.066%</TD>
+                        <TD>124.59</TD>
+                        <TD bgcolor=" Red ">-1.166%</TD>
                     </TR>
                     <TR>
                         <TD>19</TD>
                         <TD>SPY</TD>
-                        <TD>2004-07-19</TD>
+                        <TD>1999-06-28</TD>
                         <TD>10</TD>
-                        <TD>110.24</TD>
-                        <TD>2004-07-22</TD>
+                        <TD>133.31</TD>
+                        <TD>1999-06-29</TD>
                         <TD>10</TD>
-                        <TD>109.88</TD>
-                        <TD bgcolor=" Red ">-0.327%</TD>
+                        <TD>134.56</TD>
+                        <TD bgcolor=" Green ">0.938%</TD>
                     </TR>
                     <TR>
                         <TD>20</TD>
                         <TD>SPY</TD>
-                        <TD>2005-01-24</TD>
+                        <TD>1999-12-03</TD>
                         <TD>10</TD>
-                        <TD>116.55</TD>
-                        <TD>2005-01-27</TD>
+                        <TD>143.84</TD>
+                        <TD>1999-12-06</TD>
                         <TD>10</TD>
-                        <TD>117.43</TD>
-                        <TD bgcolor=" Green ">0.755%</TD>
+                        <TD>142.78</TD>
+                        <TD bgcolor=" Red ">-0.737%</TD>
                     </TR>
                     <TR>
                         <TD>21</TD>
                         <TD>SPY</TD>
-                        <TD>2005-08-08</TD>
+                        <TD>2000-02-02</TD>
                         <TD>10</TD>
-                        <TD>122.65</TD>
-                        <TD>2005-08-11</TD>
+                        <TD>141.06</TD>
+                        <TD>2000-02-03</TD>
                         <TD>10</TD>
-                        <TD>123.82</TD>
-                        <TD bgcolor=" Green ">0.954%</TD>
+                        <TD>143.19</TD>
+                        <TD bgcolor=" Green ">1.510%</TD>
                     </TR>
                     <TR>
                         <TD>22</TD>
                         <TD>SPY</TD>
-                        <TD>2007-09-24</TD>
+                        <TD>2000-05-12</TD>
                         <TD>10</TD>
-                        <TD>151.69</TD>
-                        <TD>2007-09-27</TD>
+                        <TD>142.81</TD>
+                        <TD>2000-05-15</TD>
                         <TD>10</TD>
-                        <TD>153.09</TD>
-                        <TD bgcolor=" Green ">0.923%</TD>
+                        <TD>145.28</TD>
+                        <TD bgcolor=" Green ">1.730%</TD>
                     </TR>
                     <TR>
                         <TD>23</TD>
                         <TD>SPY</TD>
-                        <TD>2007-11-12</TD>
+                        <TD>2003-04-14</TD>
                         <TD>10</TD>
-                        <TD>143.7</TD>
-                        <TD>2007-11-15</TD>
+                        <TD>88.95</TD>
+                        <TD>2003-04-15</TD>
                         <TD>10</TD>
-                        <TD>145.54</TD>
-                        <TD bgcolor=" Green ">1.280%</TD>
+                        <TD>89.78</TD>
+                        <TD bgcolor=" Green ">0.933%</TD>
                     </TR>
                     <TR>
                         <TD>24</TD>
                         <TD>SPY</TD>
-                        <TD>2007-12-31</TD>
+                        <TD>2003-10-28</TD>
                         <TD>10</TD>
-                        <TD>146.21</TD>
-                        <TD>2008-01-03</TD>
+                        <TD>105.04</TD>
+                        <TD>2003-10-29</TD>
                         <TD>10</TD>
-                        <TD>144.86</TD>
-                        <TD bgcolor=" Red ">-0.923%</TD>
+                        <TD>105.18</TD>
+                        <TD bgcolor=" Green ">0.133%</TD>
                     </TR>
                     <TR>
                         <TD>25</TD>
                         <TD>SPY</TD>
-                        <TD>2008-03-03</TD>
+                        <TD>2004-12-21</TD>
                         <TD>10</TD>
-                        <TD>133.5</TD>
-                        <TD>2008-03-06</TD>
+                        <TD>120.39</TD>
+                        <TD>2004-12-22</TD>
                         <TD>10</TD>
-                        <TD>131.06</TD>
-                        <TD bgcolor=" Red ">-1.828%</TD>
+                        <TD>120.68</TD>
+                        <TD bgcolor=" Green ">0.241%</TD>
                     </TR>
                     <TR>
                         <TD>26</TD>
                         <TD>SPY</TD>
-                        <TD>2008-03-10</TD>
+                        <TD>2005-05-17</TD>
                         <TD>10</TD>
-                        <TD>128.0</TD>
-                        <TD>2008-03-13</TD>
+                        <TD>117.58</TD>
+                        <TD>2005-05-18</TD>
                         <TD>10</TD>
-                        <TD>131.65</TD>
-                        <TD bgcolor=" Green ">2.852%</TD>
+                        <TD>118.79</TD>
+                        <TD bgcolor=" Green ">1.029%</TD>
                     </TR>
                     <TR>
                         <TD>27</TD>
                         <TD>SPY</TD>
-                        <TD>2008-12-22</TD>
+                        <TD>2007-01-30</TD>
                         <TD>10</TD>
-                        <TD>87.06</TD>
-                        <TD>2008-12-26</TD>
+                        <TD>142.79</TD>
+                        <TD>2007-01-31</TD>
                         <TD>10</TD>
-                        <TD>87.16</TD>
-                        <TD bgcolor=" Green ">0.115%</TD>
+                        <TD>143.75</TD>
+                        <TD bgcolor=" Green ">0.672%</TD>
                     </TR>
                     <TR>
                         <TD>28</TD>
                         <TD>SPY</TD>
-                        <TD>2009-02-02</TD>
+                        <TD>2007-06-14</TD>
                         <TD>10</TD>
-                        <TD>82.58</TD>
-                        <TD>2009-02-05</TD>
+                        <TD>152.86</TD>
+                        <TD>2007-06-15</TD>
                         <TD>10</TD>
-                        <TD>84.57</TD>
-                        <TD bgcolor=" Green ">2.410%</TD>
+                        <TD>153.07</TD>
+                        <TD bgcolor=" Green ">0.137%</TD>
                     </TR>
                     <TR>
                         <TD>29</TD>
                         <TD>SPY</TD>
-                        <TD>2011-06-06</TD>
+                        <TD>2007-10-26</TD>
                         <TD>10</TD>
-                        <TD>129.04</TD>
-                        <TD>2011-06-09</TD>
+                        <TD>153.62</TD>
+                        <TD>2007-10-29</TD>
                         <TD>10</TD>
-                        <TD>129.4</TD>
-                        <TD bgcolor=" Green ">0.279%</TD>
+                        <TD>154.13</TD>
+                        <TD bgcolor=" Green ">0.332%</TD>
                     </TR>
                     <TR>
                         <TD>30</TD>
                         <TD>SPY</TD>
-                        <TD>2011-08-08</TD>
+                        <TD>2009-10-06</TD>
                         <TD>10</TD>
-                        <TD>112.26</TD>
-                        <TD>2011-08-11</TD>
+                        <TD>105.51</TD>
+                        <TD>2009-10-07</TD>
                         <TD>10</TD>
-                        <TD>117.33</TD>
-                        <TD bgcolor=" Green ">4.516%</TD>
+                        <TD>105.8</TD>
+                        <TD bgcolor=" Green ">0.275%</TD>
                     </TR>
                     <TR>
                         <TD>31</TD>
                         <TD>SPY</TD>
-                        <TD>2012-04-09</TD>
+                        <TD>2010-05-27</TD>
                         <TD>10</TD>
-                        <TD>138.22</TD>
-                        <TD>2012-04-12</TD>
+                        <TD>110.76</TD>
+                        <TD>2010-05-28</TD>
                         <TD>10</TD>
-                        <TD>138.79</TD>
-                        <TD bgcolor=" Green ">0.412%</TD>
+                        <TD>109.37</TD>
+                        <TD bgcolor=" Red ">-1.255%</TD>
                     </TR>
                     <TR>
                         <TD>32</TD>
                         <TD>SPY</TD>
-                        <TD>2012-06-04</TD>
+                        <TD>2011-02-28</TD>
                         <TD>10</TD>
-                        <TD>128.1</TD>
-                        <TD>2012-06-07</TD>
+                        <TD>133.15</TD>
+                        <TD>2011-03-01</TD>
                         <TD>10</TD>
-                        <TD>132.05</TD>
-                        <TD bgcolor=" Green ">3.084%</TD>
+                        <TD>130.93</TD>
+                        <TD bgcolor=" Red ">-1.667%</TD>
                     </TR>
                     <TR>
                         <TD>33</TD>
                         <TD>SPY</TD>
-                        <TD>2013-06-24</TD>
+                        <TD>2012-02-01</TD>
                         <TD>10</TD>
-                        <TD>157.06</TD>
-                        <TD>2013-06-27</TD>
+                        <TD>132.47</TD>
+                        <TD>2012-02-02</TD>
                         <TD>10</TD>
-                        <TD>161.08</TD>
-                        <TD bgcolor=" Green ">2.560%</TD>
+                        <TD>132.68</TD>
+                        <TD bgcolor=" Green ">0.159%</TD>
                     </TR>
                     <TR>
                         <TD>34</TD>
                         <TD>SPY</TD>
-                        <TD>2013-08-19</TD>
+                        <TD>2012-02-16</TD>
                         <TD>10</TD>
-                        <TD>164.77</TD>
-                        <TD>2013-08-22</TD>
+                        <TD>136.05</TD>
+                        <TD>2012-02-17</TD>
                         <TD>10</TD>
-                        <TD>166.06</TD>
-                        <TD bgcolor=" Green ">0.783%</TD>
+                        <TD>136.41</TD>
+                        <TD bgcolor=" Green ">0.265%</TD>
+                    </TR>
+                    <TR>
+                        <TD>35</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-03-08</TD>
+                        <TD>10</TD>
+                        <TD>137.04</TD>
+                        <TD>2012-03-09</TD>
+                        <TD>10</TD>
+                        <TD>137.57</TD>
+                        <TD bgcolor=" Green ">0.387%</TD>
+                    </TR>
+                    <TR>
+                        <TD>36</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-04-25</TD>
+                        <TD>10</TD>
+                        <TD>139.19</TD>
+                        <TD>2012-04-26</TD>
+                        <TD>10</TD>
+                        <TD>140.16</TD>
+                        <TD bgcolor=" Green ">0.697%</TD>
+                    </TR>
+                    <TR>
+                        <TD>37</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-06-06</TD>
+                        <TD>10</TD>
+                        <TD>131.97</TD>
+                        <TD>2012-06-07</TD>
+                        <TD>10</TD>
+                        <TD>132.05</TD>
+                        <TD bgcolor=" Green ">0.061%</TD>
+                    </TR>
+                    <TR>
+                        <TD>38</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-09-06</TD>
+                        <TD>10</TD>
+                        <TD>143.77</TD>
+                        <TD>2012-09-07</TD>
+                        <TD>10</TD>
+                        <TD>144.33</TD>
+                        <TD bgcolor=" Green ">0.390%</TD>
+                    </TR>
+                    <TR>
+                        <TD>39</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-10-16</TD>
+                        <TD>10</TD>
+                        <TD>145.54</TD>
+                        <TD>2012-10-17</TD>
+                        <TD>10</TD>
+                        <TD>146.2</TD>
+                        <TD bgcolor=" Green ">0.453%</TD>
+                    </TR>
+                    <TR>
+                        <TD>40</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-11-01</TD>
+                        <TD>10</TD>
+                        <TD>142.83</TD>
+                        <TD>2012-11-02</TD>
+                        <TD>10</TD>
+                        <TD>141.56</TD>
+                        <TD bgcolor=" Red ">-0.889%</TD>
+                    </TR>
+                    <TR>
+                        <TD>41</TD>
+                        <TD>SPY</TD>
+                        <TD>2013-09-04</TD>
+                        <TD>10</TD>
+                        <TD>165.75</TD>
+                        <TD>2013-09-04</TD>
+                        <TD>10</TD>
+                        <TD>165.75</TD>
+                        <TD bgcolor=" Red ">0.000%</TD>
+                    </TR>
+                </TABLE>
+            </div>            
+        </div>
+
+
+</body>
+</html><!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog Report</title>
+        <style>
+            p.content-one {
+                display:none;
+                margin-left:50px;
+            }
+            div.trade_breakdown {
+                display:none;
+            }
+            th, tr, td
+            {
+            border: 1px solid #000000; 
+            border-collapse: collapse;
+            text-align: center;
+            }
+            td.title
+            { 
+                border: 0px solid #000000;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+                align: center
+            }
+
+            td.value
+            { 
+                border: 0px solid #000000;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: right;
+                padding-right: 10px;
+                padding-left: 15px;
+                align: center
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+        <script type="text/javascript">
+        <!--
+            function toggle_visibility(id) {
+               var e = document.getElementById(id);
+               if(e.style.display == 'block')
+                  e.style.display = 'none';
+               else
+                  e.style.display = 'block';
+            }
+        //-->
+        </script>
+    
+        <TABLE cellpadding="4" border="1" style="table-layout:fixed; word-wrap:break-word;">
+        <TR><TH colspan="4" style="font-size:1.5em; color:DarkBlue;">3x Lower H-L-C (SPY, x=2</TH></TR>
+        <TR><TH colspan="4" style="font-size:1.1em; color:DarkBlue;">01 Feb 1993 &nbsp&nbsp till &nbsp&nbsp 04 Sep 2013</TH></TR>
+        <TR><TD colspan="4">Buy $10,000 SPY at the Close, when market has made a lower H, L and C for the 3rd day in a row<br>Sell at the Close 2 days later</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:DarkBlue; color:white;">All Trades</TH></TR>
+        <TR><TD class="title">ROI</TD><TD class="value">3.65%</TD><TD class="title">ROI Annualized</TD><TD class="value">0.1742%</TD></TR>
+        <TR><TD class="title">Avg Win/Avg Loss</TD><TD class="value">0.66</TD><TD class="title">Profit Factor</TD><TD class="value">1.2321</TD></TR>
+        <TR><TD class="title">% Profitable</TD><TD class="value">63.41%</TD><TD class="title">Max Draw Down</TD><TD class="value">-6.56%</TD></TR>
+        <TR><TD class="title">Total Trades</TD><TD class="value">41</TD><TD class="title">Trades/Year</TD><TD class="value">1.99</TD></TR>
+        <TR><TD class="title">Winning Trades</TD><TD class="value">26</TD><TD class="title">Losing Trades</TD><TD class="value">14</TD></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">0.0943%</TD><TD class="title">Stdv Return</TD><TD class="value">1.1676%</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:green; color:white;">Winning Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">0.7889%</TD><TD class="title">Stdv Return</TD><TD class="value">0.6554%</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">7</TD><TD class="title">Max Return</TD><TD class="value">2.7680%</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:IndianRed; color:white;">Losing Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">-1.1890%</TD><TD class="title">Stdv Return</TD><TD class="value">0.8072%</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">3</TD><TD class="title">Min Return</TD><TD class="value">-2.9162%</TD></TR>
+        </TABLE>
+
+
+        <img src="3x Lower H-L-C (SPY, x=2.png" alt="Equity Curve" width="700" height="350">
+
+        <script type="text/javascript" src="collapse_sec.js"></script>
+
+        <div style="background:grey" class="sitesection" id="3x Lower H-L-C (SPY, x=2_tradediv">
+            <p class="expand-one"><a href="#3x Lower H-L-C (SPY, x=2_trades=div" onclick="toggle_visibility('3x Lower H-L-C (SPY, x=2_trades');">3x Lower H-L-C (SPY, x=2 Trade Breakdown</a></p>
+            <div class="trade_breakdown" id="3x Lower H-L-C (SPY, x=2_trades">
+                <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+                    <TR>
+                        <TH>#</TH><TH>SID</TH><TH>Open Date</TH><TH>Shares</TH><TH>Price</TH><TH>Close Date</TH><TH>Shares</TH><TH>Price</TH><TH>Return</TH>
+                    </TR>
+                    <TR>
+                        <TD>1</TD>
+                        <TD>SPY</TD>
+                        <TD>1993-11-24</TD>
+                        <TD>10</TD>
+                        <TD>46.47</TD>
+                        <TD>1993-11-26</TD>
+                        <TD>10</TD>
+                        <TD>46.5</TD>
+                        <TD bgcolor=" Green ">0.065%</TD>
+                    </TR>
+                    <TR>
+                        <TD>2</TD>
+                        <TD>SPY</TD>
+                        <TD>1994-01-27</TD>
+                        <TD>10</TD>
+                        <TD>47.75</TD>
+                        <TD>1994-01-31</TD>
+                        <TD>10</TD>
+                        <TD>48.22</TD>
+                        <TD bgcolor=" Green ">0.984%</TD>
+                    </TR>
+                    <TR>
+                        <TD>3</TD>
+                        <TD>SPY</TD>
+                        <TD>1994-02-15</TD>
+                        <TD>10</TD>
+                        <TD>47.47</TD>
+                        <TD>1994-02-17</TD>
+                        <TD>10</TD>
+                        <TD>47.16</TD>
+                        <TD bgcolor=" Red ">-0.653%</TD>
+                    </TR>
+                    <TR>
+                        <TD>4</TD>
+                        <TD>SPY</TD>
+                        <TD>1994-09-08</TD>
+                        <TD>10</TD>
+                        <TD>47.5</TD>
+                        <TD>1994-09-12</TD>
+                        <TD>10</TD>
+                        <TD>46.86</TD>
+                        <TD bgcolor=" Red ">-1.347%</TD>
+                    </TR>
+                    <TR>
+                        <TD>5</TD>
+                        <TD>SPY</TD>
+                        <TD>1994-10-27</TD>
+                        <TD>10</TD>
+                        <TD>46.67</TD>
+                        <TD>1994-10-31</TD>
+                        <TD>10</TD>
+                        <TD>47.48</TD>
+                        <TD bgcolor=" Green ">1.736%</TD>
+                    </TR>
+                    <TR>
+                        <TD>6</TD>
+                        <TD>SPY</TD>
+                        <TD>1995-04-21</TD>
+                        <TD>10</TD>
+                        <TD>50.89</TD>
+                        <TD>1995-04-24</TD>
+                        <TD>10</TD>
+                        <TD>51.48</TD>
+                        <TD bgcolor=" Green ">1.159%</TD>
+                    </TR>
+                    <TR>
+                        <TD>7</TD>
+                        <TD>SPY</TD>
+                        <TD>1995-06-13</TD>
+                        <TD>10</TD>
+                        <TD>53.94</TD>
+                        <TD>1995-06-15</TD>
+                        <TD>10</TD>
+                        <TD>54.13</TD>
+                        <TD bgcolor=" Green ">0.352%</TD>
+                    </TR>
+                    <TR>
+                        <TD>8</TD>
+                        <TD>SPY</TD>
+                        <TD>1995-10-12</TD>
+                        <TD>10</TD>
+                        <TD>58.44</TD>
+                        <TD>1995-10-16</TD>
+                        <TD>10</TD>
+                        <TD>58.34</TD>
+                        <TD bgcolor=" Red ">-0.171%</TD>
+                    </TR>
+                    <TR>
+                        <TD>9</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-02-22</TD>
+                        <TD>10</TD>
+                        <TD>66.12</TD>
+                        <TD>1996-02-26</TD>
+                        <TD>10</TD>
+                        <TD>65.0</TD>
+                        <TD bgcolor=" Red ">-1.694%</TD>
+                    </TR>
+                    <TR>
+                        <TD>10</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-07-26</TD>
+                        <TD>10</TD>
+                        <TD>63.72</TD>
+                        <TD>1996-07-29</TD>
+                        <TD>10</TD>
+                        <TD>63.02</TD>
+                        <TD bgcolor=" Red ">-1.099%</TD>
+                    </TR>
+                    <TR>
+                        <TD>11</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-08-16</TD>
+                        <TD>10</TD>
+                        <TD>66.84</TD>
+                        <TD>1996-08-19</TD>
+                        <TD>10</TD>
+                        <TD>66.87</TD>
+                        <TD bgcolor=" Green ">0.045%</TD>
+                    </TR>
+                    <TR>
+                        <TD>12</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-09-09</TD>
+                        <TD>10</TD>
+                        <TD>66.72</TD>
+                        <TD>1996-09-11</TD>
+                        <TD>10</TD>
+                        <TD>67.06</TD>
+                        <TD bgcolor=" Green ">0.510%</TD>
+                    </TR>
+                    <TR>
+                        <TD>13</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-10-31</TD>
+                        <TD>10</TD>
+                        <TD>70.84</TD>
+                        <TD>1996-11-04</TD>
+                        <TD>10</TD>
+                        <TD>71.06</TD>
+                        <TD bgcolor=" Green ">0.311%</TD>
+                    </TR>
+                    <TR>
+                        <TD>14</TD>
+                        <TD>SPY</TD>
+                        <TD>1996-12-19</TD>
+                        <TD>10</TD>
+                        <TD>75.05</TD>
+                        <TD>1996-12-23</TD>
+                        <TD>10</TD>
+                        <TD>74.66</TD>
+                        <TD bgcolor=" Red ">-0.520%</TD>
+                    </TR>
+                    <TR>
+                        <TD>15</TD>
+                        <TD>SPY</TD>
+                        <TD>1997-03-05</TD>
+                        <TD>10</TD>
+                        <TD>80.59</TD>
+                        <TD>1997-03-07</TD>
+                        <TD>10</TD>
+                        <TD>80.84</TD>
+                        <TD bgcolor=" Green ">0.310%</TD>
+                    </TR>
+                    <TR>
+                        <TD>16</TD>
+                        <TD>SPY</TD>
+                        <TD>1997-08-20</TD>
+                        <TD>10</TD>
+                        <TD>94.25</TD>
+                        <TD>1997-08-22</TD>
+                        <TD>10</TD>
+                        <TD>92.56</TD>
+                        <TD bgcolor=" Red ">-1.793%</TD>
+                    </TR>
+                    <TR>
+                        <TD>17</TD>
+                        <TD>SPY</TD>
+                        <TD>1997-10-21</TD>
+                        <TD>10</TD>
+                        <TD>97.48</TD>
+                        <TD>1997-10-23</TD>
+                        <TD>10</TD>
+                        <TD>94.94</TD>
+                        <TD bgcolor=" Red ">-2.606%</TD>
+                    </TR>
+                    <TR>
+                        <TD>18</TD>
+                        <TD>SPY</TD>
+                        <TD>1999-01-26</TD>
+                        <TD>10</TD>
+                        <TD>126.06</TD>
+                        <TD>1999-01-28</TD>
+                        <TD>10</TD>
+                        <TD>126.69</TD>
+                        <TD bgcolor=" Green ">0.500%</TD>
+                    </TR>
+                    <TR>
+                        <TD>19</TD>
+                        <TD>SPY</TD>
+                        <TD>1999-06-28</TD>
+                        <TD>10</TD>
+                        <TD>133.31</TD>
+                        <TD>1999-06-30</TD>
+                        <TD>10</TD>
+                        <TD>137.0</TD>
+                        <TD bgcolor=" Green ">2.768%</TD>
+                    </TR>
+                    <TR>
+                        <TD>20</TD>
+                        <TD>SPY</TD>
+                        <TD>1999-12-03</TD>
+                        <TD>10</TD>
+                        <TD>143.84</TD>
+                        <TD>1999-12-06</TD>
+                        <TD>10</TD>
+                        <TD>142.78</TD>
+                        <TD bgcolor=" Red ">-0.737%</TD>
+                    </TR>
+                    <TR>
+                        <TD>21</TD>
+                        <TD>SPY</TD>
+                        <TD>2000-02-02</TD>
+                        <TD>10</TD>
+                        <TD>141.06</TD>
+                        <TD>2000-02-04</TD>
+                        <TD>10</TD>
+                        <TD>142.59</TD>
+                        <TD bgcolor=" Green ">1.085%</TD>
+                    </TR>
+                    <TR>
+                        <TD>22</TD>
+                        <TD>SPY</TD>
+                        <TD>2000-05-12</TD>
+                        <TD>10</TD>
+                        <TD>142.81</TD>
+                        <TD>2000-05-15</TD>
+                        <TD>10</TD>
+                        <TD>145.28</TD>
+                        <TD bgcolor=" Green ">1.730%</TD>
+                    </TR>
+                    <TR>
+                        <TD>23</TD>
+                        <TD>SPY</TD>
+                        <TD>2003-04-14</TD>
+                        <TD>10</TD>
+                        <TD>88.95</TD>
+                        <TD>2003-04-16</TD>
+                        <TD>10</TD>
+                        <TD>88.25</TD>
+                        <TD bgcolor=" Red ">-0.787%</TD>
+                    </TR>
+                    <TR>
+                        <TD>24</TD>
+                        <TD>SPY</TD>
+                        <TD>2003-10-28</TD>
+                        <TD>10</TD>
+                        <TD>105.04</TD>
+                        <TD>2003-10-30</TD>
+                        <TD>10</TD>
+                        <TD>105.4</TD>
+                        <TD bgcolor=" Green ">0.343%</TD>
+                    </TR>
+                    <TR>
+                        <TD>25</TD>
+                        <TD>SPY</TD>
+                        <TD>2004-12-21</TD>
+                        <TD>10</TD>
+                        <TD>120.39</TD>
+                        <TD>2004-12-23</TD>
+                        <TD>10</TD>
+                        <TD>120.77</TD>
+                        <TD bgcolor=" Green ">0.316%</TD>
+                    </TR>
+                    <TR>
+                        <TD>26</TD>
+                        <TD>SPY</TD>
+                        <TD>2005-05-17</TD>
+                        <TD>10</TD>
+                        <TD>117.58</TD>
+                        <TD>2005-05-19</TD>
+                        <TD>10</TD>
+                        <TD>119.29</TD>
+                        <TD bgcolor=" Green ">1.454%</TD>
+                    </TR>
+                    <TR>
+                        <TD>27</TD>
+                        <TD>SPY</TD>
+                        <TD>2007-01-30</TD>
+                        <TD>10</TD>
+                        <TD>142.79</TD>
+                        <TD>2007-02-01</TD>
+                        <TD>10</TD>
+                        <TD>144.61</TD>
+                        <TD bgcolor=" Green ">1.275%</TD>
+                    </TR>
+                    <TR>
+                        <TD>28</TD>
+                        <TD>SPY</TD>
+                        <TD>2007-06-14</TD>
+                        <TD>10</TD>
+                        <TD>152.86</TD>
+                        <TD>2007-06-18</TD>
+                        <TD>10</TD>
+                        <TD>152.89</TD>
+                        <TD bgcolor=" Green ">0.020%</TD>
+                    </TR>
+                    <TR>
+                        <TD>29</TD>
+                        <TD>SPY</TD>
+                        <TD>2007-10-26</TD>
+                        <TD>10</TD>
+                        <TD>153.62</TD>
+                        <TD>2007-10-29</TD>
+                        <TD>10</TD>
+                        <TD>154.13</TD>
+                        <TD bgcolor=" Green ">0.332%</TD>
+                    </TR>
+                    <TR>
+                        <TD>30</TD>
+                        <TD>SPY</TD>
+                        <TD>2009-10-06</TD>
+                        <TD>10</TD>
+                        <TD>105.51</TD>
+                        <TD>2009-10-08</TD>
+                        <TD>10</TD>
+                        <TD>106.61</TD>
+                        <TD bgcolor=" Green ">1.043%</TD>
+                    </TR>
+                    <TR>
+                        <TD>31</TD>
+                        <TD>SPY</TD>
+                        <TD>2010-05-27</TD>
+                        <TD>10</TD>
+                        <TD>110.76</TD>
+                        <TD>2010-06-01</TD>
+                        <TD>10</TD>
+                        <TD>107.53</TD>
+                        <TD bgcolor=" Red ">-2.916%</TD>
+                    </TR>
+                    <TR>
+                        <TD>32</TD>
+                        <TD>SPY</TD>
+                        <TD>2011-02-28</TD>
+                        <TD>10</TD>
+                        <TD>133.15</TD>
+                        <TD>2011-03-02</TD>
+                        <TD>10</TD>
+                        <TD>131.21</TD>
+                        <TD bgcolor=" Red ">-1.457%</TD>
+                    </TR>
+                    <TR>
+                        <TD>33</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-02-01</TD>
+                        <TD>10</TD>
+                        <TD>132.47</TD>
+                        <TD>2012-02-03</TD>
+                        <TD>10</TD>
+                        <TD>134.54</TD>
+                        <TD bgcolor=" Green ">1.563%</TD>
+                    </TR>
+                    <TR>
+                        <TD>34</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-02-16</TD>
+                        <TD>10</TD>
+                        <TD>136.05</TD>
+                        <TD>2012-02-21</TD>
+                        <TD>10</TD>
+                        <TD>136.47</TD>
+                        <TD bgcolor=" Green ">0.309%</TD>
+                    </TR>
+                    <TR>
+                        <TD>35</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-03-08</TD>
+                        <TD>10</TD>
+                        <TD>137.04</TD>
+                        <TD>2012-03-12</TD>
+                        <TD>10</TD>
+                        <TD>137.58</TD>
+                        <TD bgcolor=" Green ">0.394%</TD>
+                    </TR>
+                    <TR>
+                        <TD>36</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-04-25</TD>
+                        <TD>10</TD>
+                        <TD>139.19</TD>
+                        <TD>2012-04-27</TD>
+                        <TD>10</TD>
+                        <TD>140.39</TD>
+                        <TD bgcolor=" Green ">0.862%</TD>
+                    </TR>
+                    <TR>
+                        <TD>37</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-06-06</TD>
+                        <TD>10</TD>
+                        <TD>131.97</TD>
+                        <TD>2012-06-08</TD>
+                        <TD>10</TD>
+                        <TD>133.1</TD>
+                        <TD bgcolor=" Green ">0.856%</TD>
+                    </TR>
+                    <TR>
+                        <TD>38</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-09-06</TD>
+                        <TD>10</TD>
+                        <TD>143.77</TD>
+                        <TD>2012-09-10</TD>
+                        <TD>10</TD>
+                        <TD>143.51</TD>
+                        <TD bgcolor=" Red ">-0.181%</TD>
+                    </TR>
+                    <TR>
+                        <TD>39</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-10-16</TD>
+                        <TD>10</TD>
+                        <TD>145.54</TD>
+                        <TD>2012-10-18</TD>
+                        <TD>10</TD>
+                        <TD>145.82</TD>
+                        <TD bgcolor=" Green ">0.192%</TD>
+                    </TR>
+                    <TR>
+                        <TD>40</TD>
+                        <TD>SPY</TD>
+                        <TD>2012-11-01</TD>
+                        <TD>10</TD>
+                        <TD>142.83</TD>
+                        <TD>2012-11-05</TD>
+                        <TD>10</TD>
+                        <TD>141.85</TD>
+                        <TD bgcolor=" Red ">-0.686%</TD>
+                    </TR>
+                    <TR>
+                        <TD>41</TD>
+                        <TD>SPY</TD>
+                        <TD>2013-09-04</TD>
+                        <TD>10</TD>
+                        <TD>165.75</TD>
+                        <TD>2013-09-04</TD>
+                        <TD>10</TD>
+                        <TD>165.75</TD>
+                        <TD bgcolor=" Red ">0.000%</TD>
                     </TR>
                 </TABLE>
             </div>            

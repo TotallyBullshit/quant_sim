@@ -107,6 +107,8 @@ class Simulator(object):
 
     def run(self,driver='eod'):
         for now in self.calendar:
+            if now > self.end_dt:
+                break
             self.env.update(now)
             for algo in self.algos:
                 algo.update_metrics(self.env)

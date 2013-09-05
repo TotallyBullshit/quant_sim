@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog Report</title>
+        <style>
+            p.content-one {
+                display:none;
+                margin-left:50px;
+            }
+            div.trade_breakdown {
+                display:none;
+            }
+            th, tr, td
+            {
+            border: 1px solid #000000; 
+            border-collapse: collapse;
+            text-align: center;
+            }
+            td.title
+            { 
+                border: 0px solid #000000;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+                align: center
+            }
+
+            td.value
+            { 
+                border: 0px solid #000000;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: right;
+                padding-right: 10px;
+                padding-left: 15px;
+                align: center
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+        <script type="text/javascript">
+        <!--
+            function toggle_visibility(id) {
+               var e = document.getElementById(id);
+               if(e.style.display == 'block')
+                  e.style.display = 'none';
+               else
+                  e.style.display = 'block';
+            }
+        //-->
+        </script>
+    
+        <TABLE cellpadding="4" border="1" style="table-layout:fixed; word-wrap:break-word;">
+        <TR><TH colspan="4" style="font-size:1.5em; color:DarkBlue;">$id</TH></TR>
+        <TR><TH colspan="4" style="font-size:1.1em; color:DarkBlue;">#echo $all['start_dt'].val.strftime('%d %b %Y')# &nbsp&nbsp till &nbsp&nbsp #echo $all['end_dt'].val.strftime('%d %b %Y')#</TH></TR>
+        <TR><TD colspan="4">$desc</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:DarkBlue; color:white;">All Trades</TH></TR>
+        <TR><TD class="title">ROI</TD><TD class="value">#echo '%2.2f%%' % (($all['roi'].val - 1.0) * 100.0)#</TD><TD class="title">ROI Annualized</TD><TD class="value">#echo '%2.4f%%' % ($all['roi_ann'].val * 100)#</TD></TR>
+        <TR><TD class="title">Avg Win/Avg Loss</TD><TD class="value">#echo '%2.2f'%($winners['mean_theo'].val / -$losers['mean_theo'].val)#</TD><TD class="title">Profit Factor</TD><TD class="value">$all['prof_fact']</TD></TR>
+        <TR><TD class="title">% Profitable</TD><TD class="value">#echo '%2.2f%%' % ($all['win_perc'].val * 100)#</TD><TD class="title">Max Draw Down</TD><TD class="value">#echo '%2.2f%%' % ($all['max_dd'].val * 100)#</TD></TR>
+        <TR><TD class="title">Total Trades</TD><TD class="value">$all['n']</TD><TD class="title">Trades/Year</TD><TD class="value">#echo round($all['trades/yr'].val,2)#</TD></TR>
+        <TR><TD class="title">Winning Trades</TD><TD class="value">$winners['n']</TD><TD class="title">Losing Trades</TD><TD class="value">$losers['n']</TD></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">#echo '%2.4f%%' % ($all['mean_theo'].val * 100)#</TD><TD class="title">Stdv Return</TD><TD class="value">#echo '%2.4f%%' % ($all['stdev_theo'].val * 100)#</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:green; color:white;">Winning Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">#echo '%2.4f%%' % ($winners['mean_theo'].val * 100)#</TD><TD class="title">Stdv Return</TD><TD class="value">#echo '%2.4f%%' % ($winners['stdev_theo'].val * 100)#</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">$all['max_nup']</TD><TD class="title">Max Return</TD><TD class="value">#echo '%2.4f%%' % ($winners['max_theo'].val * 100)#</TD></TR>
+        
+        <TR><TH colspan="4" style="background-color:IndianRed; color:white;">Losing Trades</TH></TR>
+        <TR><TD class="title">Avg Return</TD><TD class="value">#echo '%2.4f%%' % ($losers['mean_theo'].val * 100)#</TD><TD class="title">Stdv Return</TD><TD class="value">#echo '%2.4f%%' % ($losers['stdev_theo'].val * 100)#</TD></TR>
+        <TR><TD class="title">Max Consecutive</TD><TD class="value">$all['max_ndn']</TD><TD class="title">Min Return</TD><TD class="value">#echo '%2.4f%%' % ($losers['min_theo'].val * 100)#</TD></TR>
+        </TABLE>
+
+
+         #silent $plot($order_mngr.closed_pos, $str($report_dir + $id)) 
+        <img src="$(id).png" alt="Equity Curve" width="700" height="350">
+
+        <script type="text/javascript" src="collapse_sec.js"></script>
+
+        <div style="background:grey" class="sitesection" id="$(id)_tradediv">
+            <p class="expand-one"><a href="#$(id)_trades=div" onclick="toggle_visibility('$(id)_trades');">$id Trade Breakdown</a></p>
+            <div class="trade_breakdown" id="$(id)_trades">
+                <TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+                    <TR>
+                        <TH>#</TH><TH>SID</TH><TH>Open Date</TH><TH>Shares</TH><TH>Price</TH><TH>Close Date</TH><TH>Shares</TH><TH>Price</TH><TH>Return</TH>
+                    </TR>
+                    #for $i,$trade in $enumerate($order_mngr.closed_pos)
+                    <TR>
+                        <TD>#echo $i+1#</TD>
+                        <TD>$trade.sid</TD>
+                        <TD>$trade.open_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.shares</TD>
+                        <TD>$trade.open_p</TD>
+                        <TD>$trade.close_dt.strftime('%Y-%m-%d')</TD>
+                        <TD>$trade.close_s</TD>
+                        <TD>$trade.close_p</TD>
+                        <TD bgcolor="#if $trade.theo_ret > 0.0# Green #else# Red #end if#">#echo '%2.3f'%($trade.theo_ret * 100.0)#%</TD>
+                    </TR>
+                    #end for
+                </TABLE>
+            </div>            
+        </div>
+
+
+</body>
+</html>
