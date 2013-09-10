@@ -5,9 +5,9 @@ from collections import OrderedDict
 from quant_sim.tools.helpers import create_lambda
 from quant_sim.finances.algorithm import Algorithm
 from quant_sim.math.metric_library import *
+from quant_sim.order_mgmt.autoexit_library import *
 
-
-def state_of_market(pod, eod0, eod1):
+def state_of_market(pod, env, eod0, eod1):
     nod = OrderedDict()
     nod['dow'] = eod0.dow
     nod['IB'] = pod.get('IB',0) + 1 if eod0.h < eod1.h and eod0.l > eod1.l else 0
@@ -23,6 +23,18 @@ def state_of_market(pod, eod0, eod1):
     nod['co-dir-consec'] = pod.get('co-dir-consec',0) + 1 if nod['co-dir'] == pod.get('co-dir',0) else 1
     nod['oc-dir-consec'] = pod.get('oc-dir-consec',0) + 1 if nod['oc-dir'] == pod.get('oc-dir',0) else 1
     nod['gap-filled'] = pod.get('gap-filled',0) + 1 if (eod0.o < eod1.c and eod0.h >= eod1.c) or (eod0.o > eod1.c and eod0.l <= eod1.c) else 1
+    for i,d in enumerate(env):
+        if eod0.l < env.get(eod0.sid, d).l: nod['iLT'] = i + 1
+        else: break
+    for i,d in enumerate(env):
+        if eod0.h > env.get(eod0.sid, d).h: nod['iHT'] = i + 1
+        else: break
+    for i,d in enumerate(env):
+        if eod0.c < env.get(eod0.sid, d).c: nod['LT'] = i + 1
+        else: break
+    for i,d in enumerate(env):
+        if eod0.c > env.get(eod0.sid, d).c: nod['HT'] = i + 1
+        else: break
     return nod
 
 class MarketState(Algorithm):
@@ -53,7 +65,7 @@ class MarketState(Algorithm):
     def process_data(self, env, *args, **kwargs):
         eod0 = env.get(self.sid,0)
         eod1 = env.get(self.sid,1)
-        nod = state_of_market(self.pod, eod0, eod1)
+        nod = state_of_market(self.pod, env, eod0, eod1)
         nod['H10'] = 1 if eod0.c > self.metrics.funcs['H10'].cache[1] else 0
         nod['H20'] = 1 if eod0.c > self.metrics.funcs['H20'].cache[1] else 0
         nod['H50'] = 1 if eod0.c > self.metrics.funcs['H50'].cache[1] else 0
@@ -267,7 +279,7 @@ class Alg_010(Algorithm):
     def initialize(self, x, *args, **kwargs):
         self.x = x
         self.sid = kwargs.get('sid', 'SPY')
-        self.id = '3x Lower H-L-C (%s, x=%d)' % (self.sid, self.x)
+        self.id = '3x Lower H-L-C (%s x=%d)' % (self.sid, self.x)
         self.desc = 'Buy $10,000 %s at the Close, when market has made a lower H, L and C for the 3rd day in a row<br>Sell at the Close %d days later' % (self.sid, x)
         self.ignore_old = False
         self.add_metric(MA(id='sma10',val=0.0,window=10,func="env['SPY'].c"))
@@ -293,10 +305,10 @@ class Alg_010(Algorithm):
         nod['sma50-consec'] = self.pod.get('sma50-consec',0) + 1 if nod['sma50'] == self.pod.get('sma50',0) else 0
         nod['sma200-consec'] = self.pod.get('sma200-consec',0) + 1 if nod['sma200'] == self.pod.get('sma200',0) else 0
         shares = math.floor(self.order_mngr.active_pos['all']['bal'] / eod0.o)
-        if nod['HH'] == 2 and nod['HL'] == 2 and self.pod['sma10'] == 2 and nod['sma10'] == 1 and nod['sma200'] == 1:
-            self.order(sid, 10 , eod0.c)
-        if self.order_mngr.active_pos['all']['n'] > 0:
-            for pid,pos in self.order_mngr.active_pos[sid]['positions'].items():
-                if (env.now_dt - pos.open_dt).days >= self.x:
-                    self.order(sid, -10 , eod0.c)
+        if eod0.nth_dow == 1 and eod0.dow == 4 and eod0.wc > eod0.wo and eod0.c < eod0.o:
+            self.order(sid, 10 , eod0.c, exit=Time_Loose(self.x))
+        #if self.order_mngr.active_pos['all']['n'] > 0:
+        #    for pid,pos in self.order_mngr.active_pos[sid]['positions'].items():
+        #        if (env.now_dt - pos.open_dt).days >= self.x:
+        #            self.order(sid, -10 , eod0.c)
         self.pod = nod

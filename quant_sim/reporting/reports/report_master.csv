@@ -1,3 +1,6 @@
-algo,all:mean_theo,all:max_theo,all:roi,all:roi_ann,all:prof_fact,all:n,all:max_dd,all:win_perc,all:min_theo
-3x Lower H-L-C (SPY, x=1,0.00057,0.0212,1.0223,0.0011,1.1967,41,-0.0602,0.5854,-0.0176,
-3x Lower H-L-C (SPY, x=2,0.00094,0.0277,1.0365,0.0017,1.2321,41,-0.0656,0.6341,-0.0292,
+algo,all:roi,all:roi_ann,all:prof_fact,all:max_dd,all:n,all:win_perc,all:mean_theo,winners:mean_theo,all:max_theo,losers:mean_theo,all:min_theo
+3x Lower H-L-C (SPY x=0),0.0653,0.0032,1.5629,-0.0605,47,0.5745,0.00139,0.00670,0.0334,-0.00578,-0.0187,
+3x Lower H-L-C (SPY x=1),0.0653,0.0032,1.5629,-0.0605,47,0.5745,0.00139,0.00670,0.0334,-0.00578,-0.0187,
+3x Lower H-L-C (SPY x=2),0.0611,0.0030,1.3987,-0.0690,47,0.6809,0.00132,0.00679,0.0334,-0.01036,-0.0207,
+3x Lower H-L-C (SPY x=3),0.0471,0.0023,1.2631,-0.0885,47,0.7234,0.00105,0.00700,0.0334,-0.01449,-0.0341,
+3x Lower H-L-C (SPY x=4),0.0374,0.0019,1.2068,-0.1206,47,0.7447,0.00088,0.00688,0.0334,-0.01662,-0.0475,

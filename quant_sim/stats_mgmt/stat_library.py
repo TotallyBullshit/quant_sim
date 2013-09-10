@@ -116,7 +116,7 @@ class Max_DD(Stat):
         self.local_dd =  min(self.local_dd, self.roi / self.max_roi - 1.0)
         val =  min(self.val, self.roi / self.max_roi - 1.0)
         return val
-    
+
 class Max_NRow(Stat):
     def initialize(self, *args, **kwargs):
         self.temp_val = 0.0
@@ -131,7 +131,7 @@ class Max_NRow(Stat):
 
 class ROI(Stat):
     def process_data(self, env, stats, fk, trade):
-        return self.val * (1.0 + trade.theo_ret)
+        return (self.val + 1.0) * (1.0 + trade.theo_ret) - 1.0
 
 class Date(Stat):
     def initialize(self, *args, **kwargs):
@@ -145,7 +145,7 @@ class Years(Stat):
     def initialize(self, *args, **kwargs):
         self.reqs = ['start_dt', 'end_dt']
         self.on_bar = True
-        
+
     def process_data(self, env, stats, fk, trade):
         return (stats['all']['end_dt'] - stats['all']['start_dt']).days / 365.25
 
@@ -153,7 +153,7 @@ class Generic(Stat):
     def initialize(self, *args, **kwargs):
         self.func = kwargs.get('func', lambda a: a)
         self.ignore_e = kwargs.get('ignore_e',True)
-        
+
     def process_data(self, env, stats, fk, trade):
         try:
             val = self.func(env, stats, fk, trade)
@@ -175,14 +175,14 @@ all_stats = [N(id='n',val=0),
              Max_DD(id='max_dd',val=0.0),
              Max_NRow(id='max_nup',val=0.0, func=lambda t: t.theo_ret > 0.0),
              Max_NRow(id='max_ndn',val=0.0, func=lambda t: t.theo_ret < 0.0),
-             ROI(id='roi',val=1.0),
+             ROI(id='roi',val=0.0),
              Mean_Btw_Tr(id='mean_btw_tr',val=0.0),
              Mean_Tr_Dur(id='mean_tr_dur',val=0.0),
              Date(id='start_dt',func=min),
              Date(id='end_dt',on_bar=True,func=max),
              Generic(id='years', reqs=['start_dt', 'end_dt'], on_bar=True, func=lambda e, s, *args: (s['all']['end_dt'] - s['all']['start_dt']).days / 365.25),
              Generic(id='trades/yr', val=0.0, reqs=['years', 'n'], on_bar=True, func=lambda e, s, fk, t: s[fk]['n'] / s[fk]['years']),
-             Generic(id='roi_ann', val=0.0, reqs=['roi', 'years'], func=lambda e, s, fk, t: s[fk]['roi'] ** (1.0 / s[fk]['years']) - 1.0),
+             Generic(id='roi_ann', val=0.0, reqs=['roi', 'years'], func=lambda e, s, fk, t: (1.0 + s[fk]['roi']) ** (1.0 / s[fk]['years']) - 1.0),
              Generic(id='stdev_ann', val=0.0, reqs=['trades/yr', 'stdev_theo'], func=lambda e, s, fk, t: s[fk]['stdev_theo'] * (s[fk]['trades/yr'] ** 0.5)),
              Generic(id='clamar_ratio', val=0.0, reqs=['roi_ann', 'max_dd'], func=lambda e, s, fk, t: s[fk]['roi_ann'] / -s[fk]['max_dd']),
              Generic(id='sharpe_ratio', val=0.0, reqs=['mean_theo', 'stdev_theo', 'mean_tr_dur'], func=lambda e, s, fk, t: (s[fk]['mean_theo'] - ((0.0186 ** 1 / 252.0))*s[fk]['mean_tr_dur'])/ s[fk]['stdev_theo']),

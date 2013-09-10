@@ -147,7 +147,7 @@ class Algorithm(object):
         front end order_processer for quant.finances.algorith.process_data
         this is only order method a user is allowed to access
         """
-        self.order_mngr.order(sid, shares, price)
+        self.order_mngr.order(sid, shares, price, **kwargs)
     
 
     def record(self, recorded_vars):

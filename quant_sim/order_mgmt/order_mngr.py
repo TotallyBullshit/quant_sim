@@ -97,7 +97,7 @@ class Order_Manager(object):
         self.last_pid = 0
         self.initialize_position('all')
         self.active_pos['all']['bal'] = 10000
-        
+
     def initialize_position(self, sid):
         if sid not in self.active_pos:
             self.active_pos[sid] = {}
@@ -117,6 +117,9 @@ class Order_Manager(object):
                 pos.update(env[sid].h, env[sid].l, env[sid].c)
                 self.active_pos[sid]['float_bal'] += abs(pos.shares * pos.open_p) + (pos.shares * (pos.last_p - pos.open_p))
                 self.active_pos['all']['float_bal'] += abs(pos.shares * pos.open_p) + (pos.shares * (pos.last_p - pos.open_p))
+                exit_p = pos.auto_exit(env)
+                if exit_p != False:
+                    self.order(pos.sid, -pos.shares, exit_p)
 
     def update_pos_stats(self, sid, shares, price, mod_n):
         self.active_pos[sid]['n'] += mod_n
@@ -134,21 +137,21 @@ class Order_Manager(object):
         elif rule == 'open_all':
             pass
 
-    def order(self, sid, shares, price):
+    def order(self, sid, shares, price, **kwargs):
         self.initialize_position(sid)
         resulting_orders = self.cost_basis(sid, shares, price, self.active_pos)
         for sid, pid, resulting_shares in resulting_orders:
             if pid not in self.active_pos[sid]['positions']:
-                self.open_order(sid, shares, price)
+                self.open_order(sid, shares, price, **kwargs)
             elif abs(self.active_pos[sid]['positions'][pid].shares) == abs(resulting_shares):
                 self.close_order(sid, pid, resulting_shares, price)
             elif abs(self.active_pos[sid]['positions'][pid].shares) > abs(resulting_shares):
                 self.close_order(sid, pid, resulting_shares, price)
 
-    def open_order(self, sid, shares, price):
+    def open_order(self, sid, shares, price, **kwargs):
         new_pid = self.last_pid + 1
         self.last_pid += 1
-        self.active_pos[sid]['positions'][new_pid] = Position(sid, shares, price, self.now_dt)
+        self.active_pos[sid]['positions'][new_pid] = Position(sid, shares, price, self.now_dt, **kwargs)
         self.active_pos[sid]['positions'][new_pid].open_bal = self.active_pos['all']['bal']
         # change position stats
         self.update_pos_stats(sid, shares, price, 1)

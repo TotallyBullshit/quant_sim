@@ -6,12 +6,14 @@ from quant_sim.reporting.graphs import simple_plot
 class CSV_Master_Report(Report):
     def write(self, keys=None, fn='report.csv'):
         header = []
-        for filter_key, stats_dict in self.algos[0].stats_mngr.calcs.items():
-            for stat_key, stat_obj in stats_dict.items():
-                if keys == None or '%s:%s'%(filter_key,stat_key) in keys:
-                    header += ['%s:%s'%(filter_key,stat_key)]
         if keys == None:
-            header.sort()
+            for filter_key, stats_dict in self.algos[0].stats_mngr.calcs.items():
+                for stat_key, stat_obj in stats_dict.items():
+                    if keys == None or '%s:%s'%(filter_key,stat_key) in keys:
+                        header += ['%s:%s'%(filter_key,stat_key)]
+                header.sort()
+        else:
+            header = keys
         out = ''
         for algo in self.algos:
             out += '%s,'%(algo.id)

@@ -6,7 +6,7 @@ from quant_sim.reporting.report_library import CSV_Master_Report,CSV_ByStrat, Ch
 
 # Define Constants
 start_dt = dt.datetime(1993,2,1)
-end_dt = dt.datetime(2013,9,4)
+end_dt = dt.datetime(2013,9,6)
 balance = 10000
 DATA = '/mnt/share2/LanahanMain/code_projects/data'
 DATA = 'J:/LanahanMain/code_projects/data'
@@ -44,8 +44,11 @@ sim.add_algo([
               #Alg_006(sid='SPY'),
               #Alg_006(sid='^GSPC'),
               #Alg_007(sid='^GSPC'),
+              #Alg_010(x=0, sid='SPY'),
               #Alg_010(x=1, sid='SPY'),
-              #Alg_010(x=2, sid='SPY')
+              #Alg_010(x=2, sid='SPY'),
+              #Alg_010(x=3, sid='SPY'),
+              #Alg_010(x=4, sid='SPY')
               MarketState(sid='SPY')
               ])
 
@@ -53,14 +56,14 @@ sim.add_algo([
 sim.run()
 
 
-## Recursively (BFS) Generate Reports for all accounts
+# Recursively (BFS) Generate Reports for all accounts
 #csv_rep = CSV_Master_Report(sim.algos, report_dir=REPORT_DIR)
 #csv_strat = CSV_ByStrat(sim.algos, report_dir=REPORT_DIR)
 #ch_rep = Cheetah_Report(sim.algos,report_dir=REPORT_DIR)
 #
 ## Output reports
-#keys = ['all:n','all:win_perc','all:prof_fact','all:roi','all:roi_ann','all:max_dd','all:mean_theo','all:max_theo','all:min_theo']
+#keys = ['all:roi','all:roi_ann','all:prof_fact','all:max_dd','all:n','all:win_perc','all:mean_theo','winners:mean_theo','all:max_theo','losers:mean_theo','all:min_theo']
 #csv_rep.write(keys=keys,fn='report_master.csv')
 #csv_strat.write(fn='report_bystrat.csv')
 #ch_rep.write(temp_fn='J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/templates/blog_report.tmpl')
-##ch_rep.write(temp_fn='J:/LanahanMain/code_projects/quant/quant/reporting/templates/blog_temp.tmpl', fn='blog_rep.html')
+###ch_rep.write(temp_fn='J:/LanahanMain/code_projects/quant/quant/reporting/templates/blog_temp.tmpl', fn='blog_rep.html')

@@ -32,7 +32,6 @@ class EOD_Data(object):
         self.next = None
         self.metrics = {}
         self.pats = {}
-        print self.d, self.o, self.h, self.l, self.c, self.wh, self.mh
         # self.atr = max(self.atr,abs(self.h-self.prev.c),abs(self.l-self.prev.l)) 
 
     def __getattr__(self, attr):

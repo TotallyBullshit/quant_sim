@@ -86,6 +86,17 @@ class Environment(object):
         else:
             return default
 
+    def __iter__(self):
+        self.iter_int = self.now_int
+        return self
+
+    def next(self):
+        if self.iter_int == 0:
+            raise StopIteration
+        else:
+            self.iter_int -= 1
+            return self.calendar[self.iter_int]
+
     def get(self, sid, left, right=None, default='nan'):
         if sid not in self.data:
             self.raise_error(SID_Error, "'%s' not in data"%(sid), default)
@@ -136,7 +147,7 @@ class Environment(object):
             if left < right:
                 dates = self.calendar[left:right+1]
                 return [self.data[sid].get(d,None) for d in dates]
-            
+
     def __getitem__(self, key):
             if key in self.data and self.now_dt in self.data[key]:
                 return self.data[key][self.now_dt]
@@ -144,7 +155,7 @@ class Environment(object):
                 raise Date_Not_In_History_Error("'%s' not in %s data"%(self.now_dt.strftime('%Y-%m-%d'), key))
             else:
                 raise SID_Error("'%s' not in data"%(key))
-            
+
 if __name__ == '__main__':
     from quant_sim.sources.yeod_source import YEOD_Source
     DATA = 'J:/LanahanMain/code_projects/data'
@@ -152,14 +163,15 @@ if __name__ == '__main__':
     env= Environment()
     env.set_calendar(data_source.load('SPY').keys())
     env.add_data('SPY', data_source.load('SPY'))
-    env.update(dt.datetime(2013,8,9))
+    env.update(dt.datetime(1993,2,9))
     print 0,env['SPY']
     print 1,env.get('SPY',1)
     print 2,env.get('SPY',2)
-    print 3,env.get('SPY',3)
-    print 4,env.get('SPY',4)
-    print 5,env.get('SPY',5)
-    print env.get('SPY','2013-08-01','2013-07-29')
-    env.data['SPY'].pop(dt.datetime(2013,6,19))
-    print env.get('SPY','2013-06-17','2013-06-21')
+    #print env.get('SPY','2013-08-01','2013-07-29')
+    #env.data['SPY'].pop(dt.datetime(2013,6,19))
+    #print env.get('SPY','2013-06-17','2013-06-21')
+    print
+    print "*** testing iteration ****"
+    for i,d in enumerate(env):
+        print i+1,d
     
