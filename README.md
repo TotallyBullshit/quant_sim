@@ -3,6 +3,12 @@ QuantSim
 
 QuantSim is an Algorithmic trading library
 
+Flow
+====
+1. Update Metrics
+2. Update Order Manager
+3. Update Algorithm Strategy
+
 
 Discussion and Help
 ===================

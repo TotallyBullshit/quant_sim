@@ -22,6 +22,7 @@ sim = Simulator(start_dt, end_dt)
 sim.add_data(('SPY', data_source.load('SPY')))
 sim.add_data(('IBM', data_source.load('IBM')))
 sim.add_data(('^GSPC', data_source.load('^GSPC')))
+sim.add_data(('^VIX', data_source.load('^VIX')))
 
 # Initialize calendar to simulate one
 sim.set_calendar(data_source.load('SPY').keys())
@@ -49,7 +50,8 @@ sim.add_algo([
               #Alg_010(x=2, sid='SPY'),
               #Alg_010(x=3, sid='SPY'),
               #Alg_010(x=4, sid='SPY')
-              MarketState(sid='SPY')
+              Alg_011(sid='SPY')
+              #MarketState(sid='SPY')
               ])
 
 # Run simulation
@@ -57,13 +59,13 @@ sim.run()
 
 
 # Recursively (BFS) Generate Reports for all accounts
-#csv_rep = CSV_Master_Report(sim.algos, report_dir=REPORT_DIR)
-#csv_strat = CSV_ByStrat(sim.algos, report_dir=REPORT_DIR)
-#ch_rep = Cheetah_Report(sim.algos,report_dir=REPORT_DIR)
+csv_rep = CSV_Master_Report(sim.algos, report_dir=REPORT_DIR)
+csv_strat = CSV_ByStrat(sim.algos, report_dir=REPORT_DIR)
+ch_rep = Cheetah_Report(sim.algos,report_dir=REPORT_DIR)
 #
 ## Output reports
-#keys = ['all:roi','all:roi_ann','all:prof_fact','all:max_dd','all:n','all:win_perc','all:mean_theo','winners:mean_theo','all:max_theo','losers:mean_theo','all:min_theo']
-#csv_rep.write(keys=keys,fn='report_master.csv')
-#csv_strat.write(fn='report_bystrat.csv')
-#ch_rep.write(temp_fn='J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/templates/blog_report.tmpl')
+keys = ['all:roi','all:roi_ann','all:prof_fact','all:max_dd','all:n','all:win_perc','all:mean_theo','winners:mean_theo','all:max_theo','losers:mean_theo','all:min_theo']
+csv_rep.write(keys=keys,fn='report_master.csv')
+csv_strat.write(fn='report_bystrat.csv')
+ch_rep.write(fn='blog_report.html',temp_fn='J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/templates/blog_report.tmpl')
 ###ch_rep.write(temp_fn='J:/LanahanMain/code_projects/quant/quant/reporting/templates/blog_temp.tmpl', fn='blog_rep.html')

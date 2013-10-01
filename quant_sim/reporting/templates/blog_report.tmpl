@@ -59,7 +59,7 @@
         
         <TR><TH colspan="4" style="background-color:DarkBlue; color:white;">All Trades</TH></TR>
         <TR><TD class="title">ROI</TD><TD class="value">#echo '%2.2f%%' % (($all['roi'].val) * 100.0)#</TD><TD class="title">ROI Annualized</TD><TD class="value">#echo '%2.4f%%' % ($all['roi_ann'].val * 100)#</TD></TR>
-        <TR><TD class="title">Avg Win/Avg Loss</TD><TD class="value">#echo '%2.2f'%($winners['mean_theo'].val / -$losers['mean_theo'].val)#</TD><TD class="title">Profit Factor</TD><TD class="value">$all['prof_fact']</TD></TR>
+        <TR><TD class="title">Avg Win/Avg Loss</TD><TD class="value">$all['risk_reward']</TD><TD class="title">Profit Factor</TD><TD class="value">$all['prof_fact']</TD></TR>
         <TR><TD class="title">% Profitable</TD><TD class="value">#echo '%2.2f%%' % ($all['win_perc'].val * 100)#</TD><TD class="title">Max Draw Down</TD><TD class="value">#echo '%2.2f%%' % ($all['max_dd'].val * 100)#</TD></TR>
         <TR><TD class="title">Total Trades</TD><TD class="value">$all['n']</TD><TD class="title">Trades/Year</TD><TD class="value">#echo round($all['trades/yr'].val,2)#</TD></TR>
         <TR><TD class="title">Winning Trades</TD><TD class="value">$winners['n']</TD><TD class="title">Losing Trades</TD><TD class="value">$losers['n']</TD></TR>
@@ -92,7 +92,7 @@
                         <TD>#echo $i+1#</TD>
                         <TD>$trade.sid</TD>
                         <TD>$trade.open_dt.strftime('%Y-%m-%d')</TD>
-                        <TD>$trade.shares</TD>
+                        <TD>$trade.open_s</TD>
                         <TD>$trade.open_p</TD>
                         <TD>$trade.close_dt.strftime('%Y-%m-%d')</TD>
                         <TD>$trade.close_s</TD>

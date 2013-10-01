@@ -7,8 +7,8 @@ import datetime as dt
 # Should return boolean True or False
 
 default_filters = [('all',lambda t: True),
-                ('long',lambda t: t.shares > 0),
-                ('short',lambda t: t.shares < 0),
+                ('long',lambda t: t.open_s > 0),
+                ('short',lambda t: t.open_s < 0),
                 ('winners',lambda t: t.theo_ret > 0),
                 ('losers',lambda t: t.theo_ret < 0),
                 ('last_6mon',lambda t: (dt.datetime.now() - t.open_dt).days < (365*0.5)),

@@ -5,6 +5,11 @@ class EOD_Data(object):
         self.sid = sid
         self.d = dt.datetime.strptime(d,'%Y-%m-%d')
         self.nth_dow = ((self.d.day - 1) / 7 + 1)
+        self.nth_tdom = 0
+        if prev != None:
+            self.nth_tdom = 1 if self.d.month != prev.d.month else prev.nth_tdom + 1
+        else:
+            self.nth_tdom = 0
         self.dow = self.d.weekday()
         self.o = float(o)
         self.h = float(h)

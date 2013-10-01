@@ -1,6 +1,7 @@
 import math
 
 from collections import OrderedDict
+from random import random
 
 from quant_sim.tools.helpers import create_lambda
 from quant_sim.finances.algorithm import Algorithm
@@ -35,9 +36,16 @@ def state_of_market(pod, env, eod0, eod1):
     for i,d in enumerate(env):
         if eod0.c > env.get(eod0.sid, d).c: nod['HT'] = i + 1
         else: break
+    for i,d in enumerate(env):
+        if eod0.l > env.get(eod0.sid, d).l: nod['iLR'] = i + 1
+        else: break
+    for i,d in enumerate(env):
+        if eod0.h < env.get(eod0.sid, d).h: nod['iHR'] = i + 1
+        else: break
     return nod
 
 class MarketState(Algorithm):
+    # returns a di
     def initialize(self, *args, **kwargs):
         self.sid = kwargs.get('sid', 'SPY')
         self.id = 'Study for output (%s)' % (self.sid)
@@ -311,4 +319,117 @@ class Alg_010(Algorithm):
         #    for pid,pos in self.order_mngr.active_pos[sid]['positions'].items():
         #        if (env.now_dt - pos.open_dt).days >= self.x:
         #            self.order(sid, -10 , eod0.c)
+        self.pod = nod
+
+
+class Simple_Strat(object):
+    def __init__(self, id, f):
+        self.id = id
+        self.strat = create_lambda('self,nod,eod0,eod1',f)
+        self.prediction = 0
+        self.success_rate = 1.0
+        self.n = 0
+
+    def predict(self, alg_env, nod, eod0, eod1):
+        self.n += 1
+        prediction = self.strat(alg_env, nod, eod0, eod1)
+        if prediction == True:
+            self.prediction = 1
+        elif prediction == False:
+            self.prediction = -1
+        else:
+            self.prediction = 0
+            self.n -= 1
+        return self.prediction
+   
+    def update(self, actual):
+        if self.prediction == 0: return
+        if actual == self.prediction:
+            self.success_rate = ((self.success_rate * (self.n - 1.0)) + 1.0) / self.n
+        else:
+            self.success_rate = (self.success_rate * (self.n - 1.0)) / self.n
+
+    def reset(self):
+        self.success_rate = 0.0
+        self.n = 0
+        self.prediction = 0
+
+    def __repr__(self):
+        return '%s: %2.2f:%2d'%(self.id, self.success_rate, self.prediction)
+
+class Alg_011(Algorithm):
+    def initialize(self, x=1, *args, **kwargs):
+        self.x = x
+        self.sid = kwargs.get('sid', 'SPY')
+        self.id = 'simple_strat_basket' 
+        self.desc = 'Buy $10,000 %s at the Open<br>Sell at when price hits the 90% avg distribution volatility of last 5 days' 
+        self.ignore_old = False
+        self.add_metric(MA(id='sma5',val=0.0,window=5,func="env['SPY'].c"))
+        self.add_metric(MA(id='sma10',val=0.0,window=10,func="env['SPY'].c"))
+        self.add_metric(MA(id='sma20',val=0.0,window=20,func="env['SPY'].c"))
+        self.add_metric(MA(id='sma50',val=0.0,window=50,func="env['SPY'].c"))
+        self.add_metric(MA(id='sma200',val=0.0,window=200,func="env['SPY'].c"))
+        self.add_metric(Max(id='H10',val=0.0,cache_n=2,window=10,func="env['SPY'].c"))
+        self.add_metric(Max(id='H20',val=0.0,cache_n=2,window=20,func="env['SPY'].c"))
+        self.add_metric(Max(id='H50',val=0.0,cache_n=2,window=50,func="env['SPY'].c"))
+        self.add_metric(Min(id='L10',val=0.0,cache_n=2,window=10,func="env['SPY'].c"))
+        self.add_metric(Min(id='L20',val=0.0,cache_n=2,window=20,func="env['SPY'].c"))
+        self.add_metric(Min(id='L50',val=0.0,cache_n=2,window=50,func="env['SPY'].c"))
+        self.add_metric(Max(id='iH10',val=0.0,cache_n=2,window=10,func="env['SPY'].h"))
+        self.add_metric(Max(id='iH20',val=0.0,cache_n=2,window=20,func="env['SPY'].h"))
+        self.add_metric(Max(id='iH50',val=0.0,cache_n=2,window=50,func="env['SPY'].h"))
+        self.add_metric(Min(id='iL10',val=0.0,cache_n=2,window=10,func="env['SPY'].l"))
+        self.add_metric(Min(id='iL20',val=0.0,cache_n=2,window=20,func="env['SPY'].l"))
+        self.add_metric(Min(id='iL50',val=0.0,cache_n=2,window=50,func="env['SPY'].l"))
+        self.initialize_recorder(['o','h','l','c'], False, 'J:/LanahanMain/code_projects/quant_sim/quant_sim/reporting/records/'+self.id+'record.csv')
+        self.pod = OrderedDict()
+        self.day_strats = [Simple_Strat('sma5', "eod0.c > self.metrics['sma5']"),
+                       Simple_Strat('sma10', "eod0.c > self.metrics['sma10']"),
+                       Simple_Strat('sma50', "eod0.c > self.metrics['sma50']"),
+                       Simple_Strat('sma200', "eod0.c > self.metrics['sma200']"),
+                       Simple_Strat('sma200', "eod0.c > self.metrics['sma200']"),
+                       Simple_Strat('HH5', "1 if nod['HH'] == 5 else 'nt'"),
+                       Simple_Strat('1st-tdom', "1 if eod0.nth_tdom == 1 else 'nt'"),
+                       ]
+
+
+    def process_data(self, env,  *args, **kwargs):
+        eod0 = env.get(self.sid,0)
+        eod1 = env.get(self.sid,1)
+        nod = state_of_market(self.pod, env, eod0, eod1)
+        nod['H10'] = 1 if eod0.c > self.metrics.funcs['H10'].cache[1] else 0
+        nod['H20'] = 1 if eod0.c > self.metrics.funcs['H20'].cache[1] else 0
+        nod['H50'] = 1 if eod0.c > self.metrics.funcs['H50'].cache[1] else 0
+        nod['L10'] = 1 if eod0.c < self.metrics.funcs['L10'].cache[1] else 0
+        nod['L20'] = 1 if eod0.c < self.metrics.funcs['L20'].cache[1] else 0
+        nod['L50'] = 1 if eod0.c < self.metrics.funcs['L50'].cache[1] else 0
+        nod['iH10'] = 1 if eod0.c > self.metrics.funcs['iH10'].cache[1] else 0
+        nod['iH20'] = 1 if eod0.c > self.metrics.funcs['iH20'].cache[1] else 0
+        nod['iH50'] = 1 if eod0.c > self.metrics.funcs['iH50'].cache[1] else 0
+        nod['iL10'] = 1 if eod0.c < self.metrics.funcs['iL10'].cache[1] else 0
+        nod['iL20'] = 1 if eod0.c < self.metrics.funcs['iL20'].cache[1] else 0
+        nod['iL50'] = 1 if eod0.c < self.metrics.funcs['iL50'].cache[1] else 0
+        nod['sma10'] = 1 if eod0.c > self.metrics['sma10'] else 2
+        nod['sma20'] = 1 if eod0.c > self.metrics['sma20'] else 2
+        nod['sma50'] = 1 if eod0.c > self.metrics['sma50'] else 2
+        nod['sma200'] = 1 if eod0.c > self.metrics['sma200'] else 2
+        nod['sma10-consec'] = self.pod.get('sma10-consec',0) + 1 if nod['sma10'] == self.pod.get('sma10',0) else 1
+        nod['sma20-consec'] = self.pod.get('sma20-consec',0) + 1 if nod['sma20'] == self.pod.get('sma20',0) else 1
+        nod['sma50-consec'] = self.pod.get('sma50-consec',0) + 1 if nod['sma50'] == self.pod.get('sma50',0) else 1
+        nod['sma200-consec'] = self.pod.get('sma200-consec',0) + 1 if nod['sma200'] == self.pod.get('sma200',0) else 1
+        # Strat Logic
+        if self.n > 2:
+            for strat in self.day_strats:
+                if eod0.c > eod0.o:
+                    strat.update(1)
+                else:
+                    strat.update(-1)
+        prediction = sum([strat.predict(self,self.pod,eod0,eod1) * max(strat.success_rate,0.05) for strat in self.day_strats])
+        print '%2.3f'%prediction, self.strats
+        if prediction > 0:
+            self.order(self.sid, 10, eod0.o)
+            self.order(self.sid, -10, eod0.o)
+        else:
+            self.order(self.sid, -10, eod0.o)
+            self.order(self.sid, 10, eod0.c)
         self.pod = nod

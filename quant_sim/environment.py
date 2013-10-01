@@ -97,7 +97,7 @@ class Environment(object):
             self.iter_int -= 1
             return self.calendar[self.iter_int]
 
-    def get(self, sid, left, right=None, default='nan'):
+    def get(self, sid, left=0, right=None, default='nan'):
         if sid not in self.data:
             self.raise_error(SID_Error, "'%s' not in data"%(sid), default)
         # Handles left='2012-04-15'

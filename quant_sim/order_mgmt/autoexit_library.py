@@ -56,12 +56,12 @@ class Time_Loose(Auto_Exit):
 
 
 class Price(Auto_Exit):
-    def initialize(self, *args, **kwargs):
-        self.target = kwargs.get('target', 1)
+    def initialize(self, target, *args, **kwargs):
+        self.target = target
 
     def check_exit(self, trade, env):
-        eod = env['eod'][trade.sid]
+        eod = env[trade.sid]
         if eod.h >= self.target and eod.l <= self.target:
-            return self.get_exit_price(trade, env)
+            return self.target
         else:
             return False
